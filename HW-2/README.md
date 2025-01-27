@@ -6,15 +6,13 @@ This assignment involved creating a webpage that:
 - Includes a user prompt and logs the response.
 - Sets a primary background color using inline CSS.
 
-## Reflection on AI Usage
-I used ChatGPT to generate a version of the code. Here's my comparison:
+## Reflection of AI 
+I used ChatGPT to generate a version of the code.
 1. **Differences:**
-   - My code was more personalized and included specific examples that reflect my preferences.
-   - The AI-generated code used placeholder values that I had to modify to make it relevant.
+   - My code was obviously more personalized and included specific examples that reflect my likes.
+   - I let AI choose my question, because I couldn't pick one. So, that made things simple.
 2. **Understanding the Code:**
-   - Since I wrote most of the code myself, I can confidently explain its functionality.
-   - While the AI-generated code was helpful, relying solely on it would leave gaps in my understanding.
+   - I wrote the code myself, well, following instructions, so I think I can confidently explain its functionality.
+   - The AI-generated code is helpful. It's a good reference point, should I ever feel lost.
 3. **Ownership:**
    - I feel the work is mine because I made deliberate decisions about what to include and how to structure it.
-
-## Directory Structure

@@ -69,13 +69,3 @@ function updateButtons(choice1, choice2, action1, action2) {
     buttons[1].innerHTML = `Choose to ${choice2}`;
     buttons[1].setAttribute('onclick', `choosePath('${action2}')`);
 }
-
-// Function to toggle the background music play/pause
-function toggleAudio() {
-    var audio = document.getElementById('background-audio');
-    if (audio.paused) {
-        audio.play(); // Play the audio
-    } else {
-        audio.pause(); // Pause the audio
-    }
-}

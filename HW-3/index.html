@@ -3,17 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Story</title>
-    <script src="script.js" defer></script>  <!-- This loads the JavaScript after HTML is loaded -->
-    <link rel="stylesheet" href="style.css">  <!-- Linking the external CSS file -->
+    <title>Choose Your Adventure</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="Gas Tank Dilemma">
-        <!-- Initial story text will be dynamically updated by JavaScript -->
-        You are driving on a long road trip, and your gas light just came on. What will you do next?
-    </div>
-    <button onclick="choosePath('fillUp')">Fill up the gas tank</button>
-    <button onclick="choosePath('ignore')">Ignore the gas light</button>
-
+    <h1>The Gas Tank Dilemma</h1>
+    <p id="story-text">You're driving down the highway when your gas light turns on. Your tank is almost empty. Do you stop to fill it up, or keep driving and hope for the best?</p>
+    <button onclick="choosePath('fillUp')">Stop and fill up</button>
+    <button onclick="choosePath('ignore')">Ignore it and keep driving</button>
+    <script src="script.js"></script>
 </body>
 </html>

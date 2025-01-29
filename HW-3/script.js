@@ -62,10 +62,3 @@ function choosePath(choice) {
     }
 }
 
-function updateButtons(choice1, choice2, action1, action2) {
-    const buttons = document.querySelectorAll('button');
-    buttons[0].innerHTML = `Choose to ${choice1}`;
-    buttons[0].setAttribute('onclick', `choosePath('${action1}')`);
-    buttons[1].innerHTML = `Choose to ${choice2}`;
-    buttons[1].setAttribute('onclick', `choosePath('${action2}')`);
-}

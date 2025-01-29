@@ -3,36 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gas Tank Dilemma - Choose Your Adventure</title>
+    <title>Interactive Story</title>
     <script src="script.js" defer></script>  
     <link rel="stylesheet" href="style.css">  
 </head>
 <body>
     <h1>Gas Tank Dilemma</h1>
+    <div id="story-text">
+        <!-- Initial story text -->
+        You are driving on a long road trip, and your gas light just came on. What will you do next?
+    </div>
+    
+    <button onclick="choosePath('fillUp')">Fill up the gas tank</button>
+    <button onclick="choosePath('ignore')">Ignore the gas light</button>
 
-    <!-- Background audio -->
+    <div id="button-container">
+        <!-- Play/Pause background music button -->
+        <button onclick="toggleAudio()">Play/Pause Background Music</button>
+    </div>
+
+    <div id="image-container">
+        <img id="story-image" src="images/pic1.jpg" alt="Story Scene" width="300">
+        <img id="story-image" src="images/pic2.jpg" alt="Story Scene" width="300">
+        <img id="story-image" src="images/pic3.jpg" alt="Story Scene" width="300">
+    </div>
+
     <audio id="background-audio" loop autoplay>
         <source src="audio/Waste of Time-NightStop.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
-
-    <!-- Story Text -->
-    <div id="story-text">
-        You are driving on a long road trip, and your gas light just came on. What will you do next?
-    </div>
-
-    <!-- Buttons for choices -->
-    <div id="button-container">
-        <button onclick="choosePath('fillUp')">Fill up the gas tank</button>
-        <button onclick="choosePath('ignore')">Ignore the gas light</button>
-    </div>
-
-    <!-- Container for images -->
-    <div id="image-container">
-        <img id="story-image" src="images/pic1.jpg" alt="Story Scene" width="300">
-        <img id="image2" src="images/pic2.jpg" alt="Story Scene 2" width="300">
-        <img id="image3" src="images/pic3.jpg" alt="Story Scene 3" width="300">
-    </div>
-
 </body>
 </html>

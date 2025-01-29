@@ -30,34 +30,25 @@ button:hover {
     margin-top: 20px;
 }
 
-#story-text {
-    font-size: 18px;
-    margin-bottom: 20px;
+/* Flexbox container for the images */
+#image-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Adds space between the images */
     margin-top: 20px;
 }
 
-#button-container {
-    margin-bottom: 20px; /* Adds space between buttons and the image */
-}
-
-#story-image {
-    display: block;
-    margin: 20px auto;
-    width: 300px;
-    height: auto;
+#image-container img {
+    width: 300px; /* Ensure all images are the same size */
+    height: 200px; /* You can adjust this height as needed */
+    object-fit: cover; /* Ensure images maintain their aspect ratio */
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    text-align: center;
-    padding: 50px;
-}
 
-h1 {
-    color: #4CAF50;
+/* Styling for the buttons container */
+#button-container {
+    margin-bottom: 20px; /* Adds space between buttons and the image */
 }
 
 button {
@@ -73,24 +64,3 @@ button {
 button:hover {
     background-color: #45a049;
 }
-
-#story-text {
-    font-size: 18px;
-    margin-bottom: 20px;
-    margin-top: 20px;
-}
-
-/* Flexbox container for the images */
-#image-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px; /* Adds space between the images */
-    margin-top: 20px;
-}
-
-#image-container img {
-    max-width: 100%;  /* Ensure the images are responsive */
-    height: auto;
-}
-
-

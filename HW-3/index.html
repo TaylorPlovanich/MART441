@@ -3,19 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Story</title>
+    <title>Gas Tank Dilemma - Choose Your Adventure</title>
     <script src="script.js" defer></script>  
     <link rel="stylesheet" href="style.css">  
 </head>
 <body>
     <h1>Gas Tank Dilemma</h1>
+
+    <!-- Story Text -->
     <div id="story-text">
-        <!-- Initial story text -->
         You are driving on a long road trip, and your gas light just came on. What will you do next?
     </div>
-    <button onclick="choosePath('fillUp')">Fill up the gas tank</button>
-    <button onclick="choosePath('ignore')">Ignore the gas light</button>
 
+    <!-- Buttons for choices -->
+    <div id="button-container">
+        <button onclick="choosePath('fillUp')">Fill up the gas tank</button>
+        <button onclick="choosePath('ignore')">Ignore the gas light</button>
+    </div>
+
+    <!-- Story Image (Changes based on choices) -->
     <img id="story-image" src="images/pic1.jpg" alt="Story Scene" width="300">
 
 </body>

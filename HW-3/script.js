@@ -1,6 +1,14 @@
 let storyText = document.getElementById('story-text');
 
+// Function to play click sound
+function playClickSound() {
+    const clickSound = document.getElementById('click-sound');
+    clickSound.play();  // Play the click sound
+}
+
 function choosePath(choice) {
+    playClickSound();  // Play the sound whenever a choice is made
+    
     if (choice === 'fillUp') {
         storyText.innerHTML = "You decide to stop and fill up your gas tank. The station is just around the corner, and you make it there with no problems. You feel relieved, knowing you can continue your journey safely.";
         updateButtons('Take a scenic route', 'Take a detour', 'scenicRoute', 'detour');

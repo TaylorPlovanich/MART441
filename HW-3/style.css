@@ -48,4 +48,49 @@ button:hover {
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    text-align: center;
+    padding: 50px;
+}
+
+h1 {
+    color: #4CAF50;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#story-text {
+    font-size: 18px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+/* Flexbox container for the images */
+#image-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Adds space between the images */
+    margin-top: 20px;
+}
+
+#image-container img {
+    max-width: 100%;  /* Ensure the images are responsive */
+    height: auto;
+}
+
 

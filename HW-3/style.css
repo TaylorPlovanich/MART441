@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-color: #f4f4f4;
     color: #333;
     text-align: center;
     padding: 50px;
@@ -27,4 +27,6 @@ button:hover {
 #story-text {
     font-size: 18px;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
+

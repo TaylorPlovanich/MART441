@@ -3,7 +3,7 @@ let storyText = document.getElementById('story-text');
 function choosePath(choice) {
     if (choice === 'fillUp') {
         storyText.innerHTML = "You decide to stop and fill up your gas tank. The station is just around the corner, and you make it there with no problems. You feel relieved, knowing you can continue your journey safely.";
-        updateButtons('Take a scenic route', 'Take a detour', 'scenicRoute', 'detour');
+        updateButtons('Take the scenic route', 'Take a detour', 'scenicRoute', 'detour');
     } else if (choice === 'ignore') {
         storyText.innerHTML = "You decide to ignore the gas light and keep driving. As the miles pass, the car starts to sputter, and you realize you might be in trouble. You pull over to the side of the road, stranded without fuel.";
         updateButtons('Call for help', 'Try walking to the nearest station', 'callHelp', 'walkStation');

@@ -31,6 +31,8 @@ For the sound effect, I reviewed the documentation for the HTML audio element an
 
 While working through these challenges, I turned to ChatGPT for guidance. The assistant helped me understand some of the more advanced features I could add, like adding more dynamic features for the choices and using the play function for sound effects. However, I didnt' want to just copy and paste the asnwers given. Partly becasue I didn't know what was happening. Instead, I used the advice to improve my understanding of how things should be structured and how I could approach the problem. This gave me a better grasp of JavaScript and allowed me to build on the suggestions to make the project my own.
 
+I also had it recreate the assignment, but told it to do it its own way. It ended up making it 10x more complicated. There were so many thing that were added that I didn't understand. Also, It didn't even work that well. That was most surprising. Only two buttons worked, and that was it. 
+
 ## Conclusion
 
 In the end, I was able to create a working interactive story with dynamic choices, button updates, and sound effects. While I faced some challenges with button functionality and sound implementation, I was able to work through them by debugging and researching. I still had to use a lot of resources, and it might take me quite awhile to truly understand how this all works.

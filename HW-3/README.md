@@ -9,7 +9,7 @@ This project is a simple choose game where the player is presented with choices 
 The main goal of this project was to create an interactive narrative where the player chooses what to do next in the story. I was able to implement a straightforward structure for the storyline using innerHTML in JavaScript. Each choice the player makes updates the story text and displays new buttons for further decisions. This was a great success, as it allowed me to create an engaging narrative with multiple branches.
 
 ### Sound Effect Implementation
-I (somehow) successfully added a sound effect to play when a button is clicked. Using the HTML audio tag and JavaScript’s play function, I was able to trigger the sound each time the user interacted with the buttons. The sound is a small touch that makes the game feel more interactive, adding to the overall experience.
+I (somehow) successfully added a sound effect to play when a button is clicked. Using the HTML audio tag and JavaScript’s play function, I was able to trigger the sound each time the user interacted with the buttons. The sound is a small touch that makes the game feel more interactive, adding to the overall experience. I did look stuff up on how to do it, though.
 
 ## Challenges
 
@@ -35,5 +35,5 @@ I also had it recreate the assignment, but told it to do it its own way. It ende
 
 ## Conclusion
 
-In the end, I was able to create a working interactive story with dynamic choices, button updates, and sound effects. While I faced some challenges with button functionality and sound implementation, I was able to work through them by debugging and researching. I still had to use a lot of resources, and it might take me quite awhile to truly understand how this all works.
+In the end, I was able to create a working interactive story with dynamic choices, button updates, and sound effects. While I faced some challenges with button functionality and sound implementation, I was able to work through them by debugging and researching. I still had to use a lot of resources, and it might take me quite awhile to truly understand how this all works. I got the meat of the assignment done, though.
 

@@ -9,41 +9,27 @@ function playGame() {
 function handleChoice(choice) {
     let options = {
         "look around": { 
-            story: "You find old farming tools and a dusty lantern.", 
+            story: "You find old farming tools, a dusty lantern, and a few broken crates. It's eerily quiet.",
             image: "tools.jpg", 
             bgColor: "#444" 
         },
         "open door": { 
-            story: "The door creaks open, revealing a foggy field outside.", 
+            story: "You push open the door and step outside into the foggy, cold air. The field ahead seems endless.",
             image: "field.jpg", 
             bgColor: "#555" 
-        },
-        "climb ladder": { 
-            story: "You climb to the loft and see an old trunk covered in cobwebs.", 
-            image: "loft.jpg", 
-            bgColor: "#666" 
-        },
-        "check stalls": { 
-            story: "You check the stalls and hear rustling... something is hiding.", 
-            image: "stalls.jpg", 
-            bgColor: "#777" 
-        },
-        "call out": { 
-            story: "Your voice echoes. Suddenly, you hear footsteps outside!", 
-            image: "footsteps.jpg", 
-            bgColor: "#888" 
         }
     };
 
-    // Loop through valid choices to check if user input is valid
+    // Check if the user's choice matches the options
     for (let key in options) {
         if (choice === key) {
-            return options[key]; // Return matching result
+            return options[key]; // Return the corresponding result
         }
     }
 
+    // Default result if the input doesn't match any option
     return { 
-        story: "Invalid choice. Please type one of the listed options.", 
+        story: "Invalid choice. Please type 'Look around' or 'Open door'.", 
         image: "error.jpg", 
         bgColor: "#222" 
     };

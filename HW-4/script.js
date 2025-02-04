@@ -34,7 +34,7 @@ function handleChoice(choice) {
             options: []
         },
         "return inside": {
-            story: "You return inside the barn. Unfortunately, when you opened the door, a demon got inside and kills you.",
+            story: "You return inside the barn. Unfortunately, when you opened the door, a demon got inside and proceeds to kill you.",
             image: "barn_inside.jpg",
             options: []
         }

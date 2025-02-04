@@ -29,7 +29,7 @@ function handleChoice(choice) {
             options: ["Pick up the lantern", "Return to the barn"]
         },
         "walk towards the field": {
-            story: "You walk towards the field. The fog gets thicker and you can barely see ahead.",
+            story: "You walk towards the field. You fall into a trap hole and die.",
             image: "field_fog.jpg",
             options: ["Keep walking", "Return to the barn"]
         },

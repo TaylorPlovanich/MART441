@@ -19,7 +19,7 @@ function handleChoice(choice) {
             options: ["Walk towards the field", "Return inside"]
         },
         "pick up the lantern": {
-            story: "You pick up the lantern. It’s cold and heavy, but broke. It does nothing.",
+            story: "You pick up the lantern. It’s cold and heavy, but broken. It does nothing.",
             image: "lantern.jpg",
             options: ["Inspect the crates", "Return to the barn"]
         },

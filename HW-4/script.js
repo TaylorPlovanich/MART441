@@ -43,7 +43,7 @@ function handleChoice(choice) {
     }
 
     return { 
-        story: "Invalid choice. Try again!", 
+        story: "Invalid choice. Please type one of the listed options.", 
         image: "error.jpg", 
         bgColor: "#222" 
     };

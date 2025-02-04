@@ -1,5 +1,6 @@
 let optionsState = { // Track the state of the game choices
     lookAround: false,
+    openDoor: false
 };
 
 function playGame() {
@@ -24,31 +25,51 @@ function handleChoice(choice) {
             image: "field.jpg", 
             bgColor: "#555",
             options: ["Walk towards the field", "Return inside"]
+        },
+        "pick up the lantern": {
+            story: "You pick up the lantern. It’s cold and heavy, but there’s something calming about it.",
+            image: "lantern.jpg",
+            bgColor: "#666",
+            options: ["Inspect the crates", "Return to the barn"]
+        },
+        "inspect the crates": {
+            story: "You open one of the crates and find some old books and a rusted tool.",
+            image: "crates.jpg",
+            bgColor: "#777",
+            options: ["Pick up the lantern", "Return to the barn"]
+        },
+        "walk towards the field": {
+            story: "You walk towards the field. The fog gets thicker and you can barely see ahead.",
+            image: "field_fog.jpg",
+            bgColor: "#888",
+            options: ["Keep walking", "Return to the barn"]
+        },
+        "return inside": {
+            story: "You return inside the barn. The quietness is overwhelming.",
+            image: "barn_inside.jpg",
+            bgColor: "#999",
+            options: ["Look around", "Open door"]
         }
     };
 
     // Check if the user's choice matches the options
-    for (let key in options) {
-        if (choice === key) {
-            optionsState.lookAround = true; // Track that the user has looked around
-            return options[key]; // Return the corresponding result
-        }
+    if (options[choice]) {
+        return options[choice]; // Return the corresponding result
+    } else {
+        return { 
+            story: "Invalid choice. Please type 'Look around' or 'Open door'.", 
+            image: "error.jpg", 
+            bgColor: "#222",
+            options: ["Look around", "Open door"] // Show the basic options if input is invalid
+        };
     }
-
-    // Default result if the input doesn't match any option
-    return { 
-        story: "Invalid choice. Please type 'Look around' or 'Open door'.", 
-        image: "error.jpg", 
-        bgColor: "#222",
-        options: ["Look around", "Open door"] // Show the basic options if input is invalid
-    };
 }
 
 function updateOptions(newOptions) {
     // Clear previous options
     const optionsList = document.getElementById("options");
     optionsList.innerHTML = "";
-    
+
     // Add new options
     newOptions.forEach(option => {
         let li = document.createElement("li");
@@ -65,5 +86,6 @@ function restartGame() {
     
     // Reset options to the start
     optionsState.lookAround = false;
+    optionsState.openDoor = false;
     updateOptions(["Look around", "Open door"]);
 }

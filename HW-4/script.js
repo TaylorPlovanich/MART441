@@ -9,7 +9,7 @@ function playGame() {
 function handleChoice(choice) {
     let options = {
         "look around": { 
-            story: "You find old farming tools, a dusty lantern, and a few broken crates. It's eerily quiet.",
+            story: "You find a dusty lantern, and a few broken crates. It's eerily quiet.",
             image: "tools.jpg", 
             options: ["Pick up the lantern", "Inspect the crates"] 
         },

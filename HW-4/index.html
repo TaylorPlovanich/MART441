@@ -12,10 +12,11 @@
 <body>
     <h2 id="story">You wake up in an abandoned barn. What do you do?</h2>
     <p>Type one of the options below and press submit:</p>
-    <ul id="options">
-        <li>Look around</li>
-        <li>Open door</li>
-    </ul>
+    <div id="options">
+        <div onclick="makeChoice('look around')">Look around</div>
+        <div onclick="makeChoice('open door')">Open door</div>
+    </div>
+    
     <input type="text" id="choice" placeholder="Enter your choice">
     <button onclick="playGame()">Submit</button>
     <button onclick="restartGame()">Restart</button>

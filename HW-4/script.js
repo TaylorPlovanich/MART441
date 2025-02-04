@@ -29,7 +29,7 @@ function handleChoice(choice) {
             options: ["Pick up the book", "Return to the barn"]
         },
         "pick up the book": {
-            story: "You open the book and find a small radio to call for help.",
+            story: "You open the book and find a small radio to call for help. You are saved.",
             image: "crates.jpg",
             options: []
         },

@@ -34,7 +34,7 @@ function handleChoice(choice) {
             options: ["Keep walking", "Return to the barn"]
         },
         "return inside": {
-            story: "You return inside the barn. The quietness is overwhelming.",
+            story: "You return inside the barn. Unfortunately, when you opened the door, a demon got inside and kills you.",
             image: "barn_inside.jpg",
             options: ["Look around", "Open door"]
         }

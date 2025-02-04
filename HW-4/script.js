@@ -11,7 +11,7 @@ function handleChoice(choice) {
         "look around": { 
             story: "You find old farming tools, a dusty lantern, and a few broken crates. It's eerily quiet.",
             image: "tools.jpg", 
-            options: ["Pick up the lantern", "Inspect the crates"] // New options after looking around
+            options: ["Pick up the lantern", "Inspect the crates"] 
         },
         "open door": { 
             story: "You push open the door and step outside into the foggy, cold air. The field ahead seems endless.",
@@ -19,14 +19,19 @@ function handleChoice(choice) {
             options: ["Walk towards the field", "Return inside"]
         },
         "pick up the lantern": {
-            story: "You pick up the lantern. It’s cold and heavy, but there’s something calming about it.",
+            story: "You pick up the lantern. It’s cold and heavy, but broke. It does nothing.",
             image: "lantern.jpg",
             options: ["Inspect the crates", "Return to the barn"]
         },
         "inspect the crates": {
-            story: "You open one of the crates and find some old books and a rusted tool.",
+            story: "You open one of the crates and find an old book.",
             image: "crates.jpg",
-            options: ["Pick up the lantern", "Return to the barn"]
+            options: ["Pick up the book", "Return to the barn"]
+        },
+        "pick up the book": {
+            story: "You open the book and find a small radio to call for help.",
+            image: "crates.jpg",
+            options: []
         },
         "walk towards the field": {
             story: "You walk towards the field. You fall into a trap hole and die.",

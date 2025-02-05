@@ -7,15 +7,15 @@
     <style>
         body { font-family: Arial, sans-serif; text-align: center; background-color: #222; color: white; }
         #image { width: 300px; height: 200px; margin-top: 20px; border: 2px solid white; }
+        ul { list-style: none; padding: 0; }
+        li { cursor: pointer; margin: 5px 0; background: #444; padding: 10px; border-radius: 5px; display: inline-block; }
+        li:hover { background: #666; }
     </style>
 </head>
 <body>
     <h2 id="story">You wake up in an abandoned barn. What do you do?</h2>
-    <p>Type one of the options below and press submit:</p>
-    <div id="options">
-        <div onclick="makeChoice('look around')">Look around</div>
-        <div onclick="makeChoice('open door')">Open door</div>
-    </div>
+    <p>Click an option below or type your choice:</p>
+    <ul id="options"></ul>
     
     <input type="text" id="choice" placeholder="Enter your choice">
     <button onclick="playGame()">Submit</button>

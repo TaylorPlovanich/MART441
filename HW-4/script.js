@@ -1,21 +1,21 @@
 function playGame() {
-let choice = document.getElementById("choice").value.toLowerCase();
-let result = handleChoice(choice);
-document.getElementById("story").innerText = result.story;
-document.getElementById("image").src = result.image; 
-updateOptions(result.options); 
+    let choice = document.getElementById("choice").value.toLowerCase();
+    let result = handleChoice(choice);
+    document.getElementById("story").innerText = result.story;
+    document.getElementById("image").src = result.image; 
+    updateOptions(result.options); 
 }
 
 function handleChoice(choice) {
-let options = {
-"look around": { 
+    let options = {
+        "look around": { 
             story: "You find a dusty lantern, and a few broken crates. It's eerily quiet.",
             image: "tools.jpg", 
             options: ["Pick up the lantern", "Inspect the crates"] 
         },
         "open door": { 
             story: "You push open the door and step outside into the foggy, cold air. The field ahead seems endless.",
-            image: "field.jpg", 
+            image: "foggyfield.jpg", 
             options: ["Walk towards the field", "Return inside"]
         },
         "pick up the lantern": {
@@ -25,12 +25,12 @@ let options = {
         },
         "inspect the crates": {
             story: "You open one of the crates and find an old book.",
-            image: "crates.jpg",
+            image: "book.jpg",
             options: ["Pick up the book", "Return to the barn"]
         },
         "pick up the book": {
             story: "You open the book and find a small radio to call for help. You are saved.",
-            image: "crates.jpg",
+            image: "radio.jpg",
             options: []
         },
         "walk towards the field": {

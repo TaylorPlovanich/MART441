@@ -1,65 +1,64 @@
 function playGame() {
-    let choice = document.getElementById("choice").value.toLowerCase();
-    let result = handleChoice(choice);
-    document.getElementById("story").innerText = result.story;
-    document.getElementById("image").src = result.image; // Change image
-    updateOptions(result.options); // Update options based on the choice
+let choice = document.getElementById("choice").value.toLowerCase();
+let result = handleChoice(choice);
+document.getElementById("story").innerText = result.story;
+document.getElementById("image").src = result.image; 
+updateOptions(result.options); 
 }
 
 function handleChoice(choice) {
-    let options = {
-        "look around": { 
+let options = {
+"look around": { 
             story: "You find a dusty lantern, and a few broken crates. It's eerily quiet.",
-            image: "images/barn.jpg", 
+            image: "tools.jpg", 
             options: ["Pick up the lantern", "Inspect the crates"] 
         },
         "open door": { 
             story: "You push open the door and step outside into the foggy, cold air. The field ahead seems endless.",
-            image: "images/foggyfield.jpg", 
+            image: "field.jpg", 
             options: ["Walk towards the field", "Return inside"]
         },
         "pick up the lantern": {
             story: "You pick up the lantern. It’s cold and heavy, but broken. It does nothing.",
-            image: "images/lantern.jpg",
+            image: "lantern.jpg",
             options: ["Inspect the crates", "Return to the barn"]
         },
         "inspect the crates": {
             story: "You open one of the crates and find an old book.",
-            image: "images/crates.jpg",
+            image: "crates.jpg",
             options: ["Pick up the book", "Return to the barn"]
         },
         "pick up the book": {
             story: "You open the book and find a small radio to call for help. You are saved.",
-            image: "images/crates.jpg",
+            image: "crates.jpg",
             options: []
         },
         "walk towards the field": {
             story: "You walk towards the field. You fall into a trap hole and die.",
-            image: "images/field_fog.jpg",
+            image: "field_fog.jpg",
             options: []
         },
         "return inside": {
             story: "You return inside the barn. Unfortunately, when you opened the door, a demon got inside and proceeds to kill you.",
-            image: "images/barn_inside.jpg",
+            image: "barn_inside.jpg",
             options: []
         }
     };
 
-    // Check if the user's choice matches the options
     if (options[choice]) {
-        return options[choice]; // Return the corresponding result
+        return options[choice]; 
     } else {
         return { 
             story: "Invalid choice. Please type or select an option.", 
             image: "images/error.jpg", 
-            options: ["Look around", "Open door"] // Show basic options if input is invalid
+            options: ["Look around", "Open door"] 
         };
     }
 }
 
 function updateOptions(newOptions) {
     const optionsList = document.getElementById("options");
-    optionsList.innerHTML = ""; // Clear previous options
+    optionsList.innerHTML = ""; 
 
     newOptions.forEach(option => {
         let li = document.createElement("li");
@@ -67,7 +66,7 @@ function updateOptions(newOptions) {
         li.style.cursor = "pointer";
         li.onclick = function() {
             document.getElementById("choice").value = option;
-            playGame(); // Trigger game function
+            playGame(); 
         };
         optionsList.appendChild(li);
     });
@@ -80,7 +79,7 @@ function restartGame() {
     updateOptions(["Look around", "Open door"]);
 }
 
-// Initialize game on page load
+
 window.onload = function() {
     restartGame();
 };

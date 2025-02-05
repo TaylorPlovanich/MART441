@@ -35,7 +35,7 @@ function handleChoice(choice) {
         },
         "walk towards the field": {
             story: "You walk towards the field. You fall into a trap hole and die.",
-            image: "field_fog.jpg",
+            image: "images/trap.jpg",
             options: []
         },
         "return inside": {

@@ -10,7 +10,7 @@ function handleChoice(choice) {
     let options = {
         "look around": { 
             story: "You find a dusty lantern, and a few broken crates. It's eerily quiet.",
-            image: "tools.jpg", 
+            image: "images/crates.jpg", 
             options: ["Pick up the lantern", "Inspect the crates"] 
         },
         "open door": { 
@@ -40,7 +40,7 @@ function handleChoice(choice) {
         },
         "return inside": {
             story: "You return inside the barn. Unfortunately, when you opened the door, a demon got inside and proceeds to kill you.",
-            image: "barn_inside.jpg",
+            image: "images/demon.jpg",
             options: []
         }
     };

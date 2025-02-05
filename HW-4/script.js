@@ -15,7 +15,7 @@ function handleChoice(choice) {
         },
         "open door": { 
             story: "You push open the door and step outside into the foggy, cold air. The field ahead seems endless.",
-            image: "images/field.jpg", 
+            image: "images/foggyfield.jpg", 
             options: ["Walk towards the field", "Return inside"]
         },
         "pick up the lantern": {

@@ -10,7 +10,7 @@ function handleChoice(choice) {
     let options = {
         "look around": { 
             story: "You find a dusty lantern, and a few broken crates. It's eerily quiet.",
-            image: "tools.jpg", 
+            image: "images/crates.jpg", 
             options: ["Pick up the lantern", "Inspect the crates"] 
         },
         "open door": { 

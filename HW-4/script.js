@@ -15,22 +15,22 @@ function handleChoice(choice) {
         },
         "open door": { 
             story: "You push open the door and step outside into the foggy, cold air. The field ahead seems endless.",
-            image: "foggyfield.jpg", 
+            image: "images/foggyfield.jpg", 
             options: ["Walk towards the field", "Return inside"]
         },
         "pick up the lantern": {
             story: "You pick up the lantern. It’s cold and heavy, but broken. It does nothing.",
-            image: "lantern.jpg",
+            image: "images/lantern.jpg",
             options: ["Inspect the crates", "Return to the barn"]
         },
         "inspect the crates": {
             story: "You open one of the crates and find an old book.",
-            image: "book.jpg",
+            image: "images/book.jpg",
             options: ["Pick up the book", "Return to the barn"]
         },
         "pick up the book": {
             story: "You open the book and find a small radio to call for help. You are saved.",
-            image: "radio.jpg",
+            image: "images/radio.jpg",
             options: []
         },
         "walk towards the field": {

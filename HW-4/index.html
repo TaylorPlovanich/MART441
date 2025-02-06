@@ -8,15 +8,33 @@
         body { font-family: Arial, sans-serif; text-align: center; background-color: #222; color: white; }
         #image { width: 300px; height: 200px; margin-top: 20px; border: 2px solid white; }
         input, button { margin: 10px; padding: 8px; }
+        #choices { margin-top: 20px; font-size: 18px; }
     </style>
 </head>
 <body>
     <h2 id="story">You wake up in an abandoned barn. What do you do?</h2>
     
+    <!-- Input for the user's choice -->
     <input type="text" id="choice" placeholder="Enter your choice">
     <button onclick="playGame()">Submit</button>
     <button id="restart" style="display:none" onclick="restartGame()">Restart</button>
     
+    <br>
+    
+    <!-- Display the list of choices -->
+    <div id="choices">
+        <p><strong>Choices:</strong></p>
+        <ul>
+            <li>look around</li>
+            <li>open door</li>
+            <li>pick up lantern</li>
+            <li>inspect crates</li>
+            <li>pick up book</li>
+            <li>walk towards field</li>
+            <li>return inside</li>
+        </ul>
+    </div>
+
     <br>
     <img id="image" src="images/barn.jpg" alt="Barn scene">
 

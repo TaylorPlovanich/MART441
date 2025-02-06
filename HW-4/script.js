@@ -1,47 +1,83 @@
-function playGame() {
-    let choice = document.getElementById("choice").value.toLowerCase(); // Get the choice and make it lowercase
-    let storyText = "";
-    let imagePath = "";
+let currentStory = "start"; // Keeps track of where we are in the story
 
-    // Handle the choices with if/else statements
-    if (choice === "look around") {
-        storyText = "You see a dusty lantern and some broken crates.";
-        imagePath = "images/crates.jpg";
-    } else if (choice === "open door") {
-        storyText = "You open the door and see a foggy field.";
-        imagePath = "images/foggyfield.jpg";
-    } else if (choice === "pick up lantern") {
-        storyText = "The lantern is broken. It does nothing.";
-        imagePath = "images/lantern.jpg";
-    } else if (choice === "inspect crates") {
-        storyText = "You find an old book.";
-        imagePath = "images/book.jpg";
-    } else if (choice === "pick up book") {
-        storyText = "Inside the book, you find a small radio. You call for help and are saved!";
-        imagePath = "images/radio.jpg";
-    } else if (choice === "walk towards field") {
-        storyText = "You walk into the field and fall into a trap. Game over.";
-        imagePath = "images/trap.jpg";
-    } else if (choice === "return inside") {
-        storyText = "You return inside, but a demon gets in and attacks you. Game over.";
-        imagePath = "images/demon.jpg";
+// Function to handle user input
+function makeChoice() {
+    let choice = document.getElementById("choice").value.toLowerCase(); // Get the user's input
+    let storyText = "";
+    let choicesText = "";
+
+    // Handle the choices based on the current story
+    if (currentStory === "start") {
+        if (choice === "look around") {
+            storyText = "You see a dusty lantern and some broken crates.";
+            choicesText = "Type 'pick up lantern' or 'inspect crates'.";
+            currentStory = "barn";
+        } else if (choice === "open door") {
+            storyText = "You open the door and see a foggy field.";
+            choicesText = "Type 'walk into field' or 'return to barn'.";
+            currentStory = "field";
+        } else {
+            storyText = "Invalid choice. Try 'look around' or 'open door'.";
+            choicesText = "Type 'look around' or 'open door'.";
+        }
+    } else if (currentStory === "barn") {
+        if (choice === "pick up lantern") {
+            storyText = "The lantern is broken and does nothing.";
+            choicesText = "Type 'inspect crates' or 'leave barn'.";
+            currentStory = "barn_end";
+        } else if (choice === "inspect crates") {
+            storyText = "You find an old book inside the crates.";
+            choicesText = "Type 'read book' or 'leave barn'.";
+            currentStory = "barn_end";
+        } else {
+            storyText = "Invalid choice. Try 'pick up lantern' or 'inspect crates'.";
+            choicesText = "Type 'pick up lantern' or 'inspect crates'.";
+        }
+    } else if (currentStory === "field") {
+        if (choice === "walk into field") {
+            storyText = "You walk into the field but fall into a trap. Game over.";
+            choicesText = "Type 'restart' to try again.";
+            currentStory = "end";
+        } else if (choice === "return to barn") {
+            storyText = "You return to the barn, where the story started.";
+            choicesText = "Type 'look around' or 'open door'.";
+            currentStory = "start";
+        } else {
+            storyText = "Invalid choice. Try 'walk into field' or 'return to barn'.";
+            choicesText = "Type 'walk into field' or 'return to barn'.";
+        }
+    } else if (currentStory === "barn_end") {
+        if (choice === "read book") {
+            storyText = "Inside the book, you find a key to escape the barn. You win!";
+            choicesText = "Type 'restart' to try again.";
+            currentStory = "end";
+        } else if (choice === "leave barn") {
+            storyText = "You leave the barn and get lost in the fog. Game over.";
+            choicesText = "Type 'restart' to try again.";
+            currentStory = "end";
+        } else {
+            storyText = "Invalid choice. Try 'read book' or 'leave barn'.";
+            choicesText = "Type 'read book' or 'leave barn'.";
+        }
     } else {
-        storyText = "Invalid choice. Try again.";
-        imagePath = "images/error.jpg";
+        storyText = "Game over.";
+        choicesText = "Type 'restart' to try again.";
+        document.getElementById("restart").style.display = "inline"; // Show restart button
     }
 
-    // Update the text and image based on the choice
+    // Update the story and choices
     document.getElementById("story").innerText = storyText;
-    document.getElementById("image").src = imagePath;
+    document.getElementById("choices-text").innerText = choicesText;
 
-    // Show the restart button after the user makes a choice
-    document.getElementById("restart").style.display = "inline";
+    // Clear the input field
+    document.getElementById("choice").value = "";
 }
 
+// Function to restart the game
 function restartGame() {
-    // Reset the game to the beginning
+    currentStory = "start"; // Reset the story
     document.getElementById("story").innerText = "You wake up in an abandoned barn. What do you do?";
-    document.getElementById("choice").value = "";  // Clear the input field
-    document.getElementById("image").src = "images/barn.jpg";  // Reset the image
-    document.getElementById("restart").style.display = "none";  // Hide the restart button
+    document.getElementById("choice").value = "";
+    document.getElementById("restart").style.display = "none"; // Hide the restart button
+    document.getElementById("choices-text").innerText = "Type 'look around' or 'open door'.";
 }

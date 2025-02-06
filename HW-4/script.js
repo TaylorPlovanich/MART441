@@ -1,5 +1,4 @@
-function playGame() {
-    let choice = document.getElementById("choice").value.toLowerCase();
+function playGame(choice) {
     let storyText = "";
     let imagePath = "";
 
@@ -31,11 +30,4 @@ function playGame() {
 
     document.getElementById("story").innerText = storyText;
     document.getElementById("image").src = imagePath;
-}
-
-
-function restartGame() {
-    document.getElementById("story").innerText = "You wake up in an abandoned barn. What do you do?";
-    document.getElementById("choice").value = "";
-    document.getElementById("image").src = "images/barn.jpg";
 }

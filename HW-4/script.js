@@ -31,3 +31,9 @@ function playGame(choice) {
     document.getElementById("story").innerText = storyText;
     document.getElementById("image").src = imagePath;
 }
+
+function restartGame() {
+    document.getElementById("story").innerText = "You wake up in an abandoned barn. What do you do?";
+    document.getElementById("choice").value = "";
+    document.getElementById("image").src = "images/barn.jpg";
+}

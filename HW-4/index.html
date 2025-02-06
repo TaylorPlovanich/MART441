@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Adventure Game</title>
+    <title>Abandoned Barn Adventure</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; background-color: #222; color: white; }
         #image { width: 300px; height: 200px; margin-top: 20px; border: 2px solid white; }
+        input, button { margin: 10px; padding: 8px; }
     </style>
 </head>
 <body>
     <h2 id="story">You wake up in an abandoned barn. What do you do?</h2>
+    
+    <p>Type your choice below and press submit:</p>
     
     <input type="text" id="choice" placeholder="Enter your choice">
     <button onclick="playGame()">Submit</button>

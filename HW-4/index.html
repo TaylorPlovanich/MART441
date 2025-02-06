@@ -3,23 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abandoned Barn Adventure</title>
+    <title>Simple Adventure Game</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; background-color: #222; color: white; }
         #image { width: 300px; height: 200px; margin-top: 20px; border: 2px solid white; }
-        ul { list-style: none; padding: 0; }
-        li { cursor: pointer; margin: 5px 0; background: #444; padding: 10px; border-radius: 5px; display: inline-block; }
-        li:hover { background: #666; }
     </style>
 </head>
 <body>
     <h2 id="story">You wake up in an abandoned barn. What do you do?</h2>
-    <p>Click an option below or type your choice:</p>
-    <ul id="options"></ul>
     
     <input type="text" id="choice" placeholder="Enter your choice">
     <button onclick="playGame()">Submit</button>
     <button onclick="restartGame()">Restart</button>
+    
     <br>
     <img id="image" src="images/barn.jpg" alt="Barn scene">
 

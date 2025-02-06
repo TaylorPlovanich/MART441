@@ -17,7 +17,7 @@ function makeChoice() {
         } else if (choice === "open door") {
             storyText = "You open the door and see a foggy field.";
             choicesText = "Type 'walk into field' or 'return to barn'.";
-            imageSrc = "images/field.jpg"; // Change the image when user opens the door
+            imageSrc = "images/foggyfield.jpg"; // Change the image when user opens the door
             currentStory = "field";
         } else {
             storyText = "Invalid choice. Try 'look around' or 'open door'.";

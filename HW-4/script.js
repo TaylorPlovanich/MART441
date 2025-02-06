@@ -1,3 +1,11 @@
+// Event listeners for the initial choices
+document.getElementById('lookAroundButton').addEventListener('click', function() {
+    playGame('look around');
+});
+document.getElementById('openDoorButton').addEventListener('click', function() {
+    playGame('open door');
+});
+
 function playGame(choice) {
     let storyText = "";
     let imagePath = "";
@@ -30,10 +38,4 @@ function playGame(choice) {
 
     document.getElementById("story").innerText = storyText;
     document.getElementById("image").src = imagePath;
-}
-
-function restartGame() {
-    document.getElementById("story").innerText = "You wake up in an abandoned barn. What do you do?";
-    document.getElementById("choice").value = "";
-    document.getElementById("image").src = "images/barn.jpg";
 }

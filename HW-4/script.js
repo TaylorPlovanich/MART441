@@ -1,11 +1,10 @@
-let currentStory = "start"; // Keeps track of where we are in the story
+let currentStory = "start"; 
 
-// Function to handle user input
 function makeChoice() {
-    let choice = document.getElementById("choice").value.toLowerCase(); // Get the user's input
+    let choice = document.getElementById("choice").value.toLowerCase(); 
     let storyText = "";
     let choicesText = "";
-    let imageSrc = "images/barn.jpg"; // Default image for the start
+    let imageSrc = "images/barn.jpg"; 
 
     // Story choices
     let storyData = {
@@ -57,16 +56,13 @@ function makeChoice() {
         choicesText = "Type: 'look around' or 'open door'.";
     }
 
-    // Update the story, choices, and image
     document.getElementById("story").innerText = storyText;
     document.getElementById("choices-text").innerText = choicesText;
     document.getElementById("image").src = imageSrc;
 
-    // Clear the input field
     document.getElementById("choice").value = "";
 }
 
-// Function to restart the game
 function restartGame() {
     currentStory = "start";
     document.getElementById("story").innerText = "You wake up in an abandoned barn. What do you do?";

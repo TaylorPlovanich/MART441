@@ -25,7 +25,6 @@ function getStoryText(choice) {
     return "Invalid choice. Try again.";
 }
 
-// Function that returns the next choices
 function getChoicesText(choice) {
     if (storyData[choice] && storyData[choice].options.length > 0) {
         return "Type: " + storyData[choice].options.join(" or ");

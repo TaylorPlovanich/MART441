@@ -9,7 +9,7 @@ function makeChoice() {
     let storyData = {
         "look around": { 
             story: "You find a dusty lantern, and a few broken crates. It's eerily quiet.",
-            image: "images/tools.jpg", 
+            image: "images/crates.jpg", 
             options: ["Pick up the lantern", "Inspect the crates"] 
         },
         "open door": { 
@@ -19,7 +19,7 @@ function makeChoice() {
         },
         "pick up the lantern": {
             story: "You pick up the lantern. It’s cold and heavy, but broken. It does nothing.",
-            image: "lantern.jpg",
+            image: "images/lantern.jpg",
             options: ["Inspect the crates", "Return to the barn"]
         },
         "inspect the crates": {
@@ -46,7 +46,7 @@ function makeChoice() {
 
     if (storyData[choice]) {
         storyText = storyData[choice].story;
-        imageSrc = "images/" + storyData[choice].image;
+        imageSrc = storyData[choice].image; 
     
         if (storyData[choice].options.length > 0) {
             choicesText = "Type: " + storyData[choice].options.join(" or ");
@@ -62,7 +62,7 @@ function makeChoice() {
     
     document.getElementById("story").innerText = storyText;
     document.getElementById("choices-text").innerText = choicesText;
-    document.getElementById("image").src = imageSrc;
+    document.getElementById("image").src = imageSrc; 
     document.getElementById("choice").value = "";
 }
 

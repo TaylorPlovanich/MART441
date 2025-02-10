@@ -60,12 +60,9 @@ function makeChoice() {
         choicesText = "Type: 'look around' or 'open door'.";
     }
     
-    }
-
     document.getElementById("story").innerText = storyText;
     document.getElementById("choices-text").innerText = choicesText;
     document.getElementById("image").src = imageSrc;
-
     document.getElementById("choice").value = "";
 }
 

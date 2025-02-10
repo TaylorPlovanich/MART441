@@ -15,7 +15,7 @@
 
     <!-- User input for choices -->
     <input type="text" id="choice" placeholder="Type your choice">
-    <button onclick="makeChoice()">Submit</button>
+    <button id="submit">Submit</button>
     <button id="restart" style="display:none" onclick="restartGame()">Restart</button>
 
     <p><strong>Choices:</strong></p>
@@ -25,5 +25,25 @@
     <img id="image" src="images/barn.jpg" alt="Barn scene">
 
     <script src="script.js"></script>
+
+    <script>
+        // Event listener for the submit button
+        document.getElementById("submit").addEventListener("click", function() {
+            let userInput = document.getElementById("choice").value.trim().toLowerCase();
+
+            // Ensure the user input is not empty
+            while (userInput === "") {
+                userInput = prompt("Please enter a choice:").trim().toLowerCase();
+            }
+
+            // Call the makeChoice function with the user input
+            makeChoice(userInput);
+        });
+
+        // Event listener for the restart button (optional: hides/show on certain conditions)
+        function showRestartButton() {
+            document.getElementById("restart").style.display = "inline"; 
+        }
+    </script>
 </body>
 </html>

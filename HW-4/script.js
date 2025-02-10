@@ -9,12 +9,12 @@ function makeChoice() {
     let storyData = {
         "look around": { 
             story: "You find a dusty lantern, and a few broken crates. It's eerily quiet.",
-            image: "tools.jpg", 
+            image: "images/tools.jpg", 
             options: ["Pick up the lantern", "Inspect the crates"] 
         },
         "open door": { 
             story: "You push open the door and step outside into the foggy, cold air. The field ahead seems endless.",
-            image: "field.jpg", 
+            image: "images/foggyfield.jpg", 
             options: ["Walk towards the field", "Return inside"]
         },
         "pick up the lantern": {
@@ -24,22 +24,22 @@ function makeChoice() {
         },
         "inspect the crates": {
             story: "You open one of the crates and find an old book.",
-            image: "crates.jpg",
+            image: "images/book.jpg",
             options: ["Pick up the book", "Return to the barn"]
         },
         "pick up the book": {
             story: "You open the book and find a small radio to call for help. You are saved.",
-            image: "crates.jpg",
+            image: "images/radio.jpg",
             options: []
         },
         "walk towards the field": {
             story: "You walk towards the field. You fall into a trap hole and die.",
-            image: "field_fog.jpg",
+            image: "images/trap.jpg",
             options: []
         },
         "return inside": {
             story: "You return inside the barn. Unfortunately, when you opened the door, a demon got inside and proceeds to kill you.",
-            image: "barn_inside.jpg",
+            image: "images/demon.jpg",
             options: []
         }
     };

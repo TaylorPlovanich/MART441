@@ -13,13 +13,11 @@ function makeChoice(userChoice) {
     document.getElementById("image").src = imageSrc; 
     document.getElementById("choice").value = "";
 
-    // Show restart button when there's no further choices
     if (storyData[choice] && storyData[choice].options.length === 0) {
         showRestartButton();
     }
 }
 
-// Function that returns the story text
 function getStoryText(choice) {
     if (storyData[choice]) {
         return storyData[choice].story;
@@ -35,7 +33,6 @@ function getChoicesText(choice) {
     return "Game Over. Type 'restart' to play again.";
 }
 
-// Function that returns the image path
 function getImage(choice) {
     if (storyData[choice]) {
         return storyData[choice].image;
@@ -43,28 +40,24 @@ function getImage(choice) {
     return "images/barn.jpg";
 }
 
-// Function to restart the game
 function restartGame() {
     currentStory = "start";
     document.getElementById("story").innerText = "You wake up in an abandoned barn. What do you do?";
     document.getElementById("choice").value = "";
     document.getElementById("choices-text").innerText = "Type: 'look around' or 'open door'.";
     document.getElementById("image").src = "images/barn.jpg";
-    document.getElementById("restart").style.display = "none"; // Hide restart button after restart
+    document.getElementById("restart").style.display = "none"; 
 }
 
-// Show restart button
 function showRestartButton() {
     document.getElementById("restart").style.display = "inline"; 
 }
 
-// Handle the user's input when they click submit
 function submitChoice() {
     let userInput = document.getElementById("choice").value.trim().toLowerCase();
     makeChoice(userInput);
 }
 
-// Story Data (remains unchanged)
 let storyData = {
     "look around": { 
         story: "You find a dusty lantern, and a few broken crates. It's eerily quiet.",

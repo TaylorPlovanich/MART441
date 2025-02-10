@@ -6,7 +6,6 @@ function makeChoice() {
     let choicesText = "";
     let imageSrc = "images/barn.jpg"; 
 
-    // Story choices
     let storyData = {
         "look around": { 
             story: "You find a dusty lantern, and a few broken crates. It's eerily quiet.",
@@ -45,15 +44,22 @@ function makeChoice() {
         }
     };
 
-    // Update story based on user choice
     if (storyData[choice]) {
         storyText = storyData[choice].story;
         imageSrc = "images/" + storyData[choice].image;
-        choicesText = storyData[choice].options.length > 0 ? "Type: " + storyData[choice].options.join(" or ") : "Game Over. Type 'restart' to play again.";
+    
+        if (storyData[choice].options.length > 0) {
+            choicesText = "Type: " + storyData[choice].options.join(" or ");
+        } else {
+            choicesText = "Game Over. Type 'restart' to play again.";
+        }
+    
         currentStory = choice;
     } else {
         storyText = "Invalid choice. Try again.";
         choicesText = "Type: 'look around' or 'open door'.";
+    }
+    
     }
 
     document.getElementById("story").innerText = storyText;

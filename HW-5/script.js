@@ -1,5 +1,5 @@
 // Create an array of blank images (placeholders)
-const blankImages = Array(12).fill("blank.png"); // Replace with actual blank image URL
+const blankImages = Array(12).fill("images/blank.png"); // Replace with actual blank image URL
 
 // Create an array of actual images (each appearing twice, shuffled randomly)
 const actualImages = [];

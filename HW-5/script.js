@@ -3,8 +3,8 @@ const blankImages = Array(12).fill("blank.png"); // Replace with actual blank im
 
 // Create an array of actual images (each appearing twice, shuffled randomly)
 const actualImages = [];
-const imageOptions = ["images/img1.jpg", "img2.png", "img3.png", "img4.png", "img5.png", "img6.png"];
-const blankImage = "blank.png"; // Hidden state image
+const imageOptions = ["images/img1.jpg", "images/img2.jpg", "images/img3.jpg", "images/img4.jpg", "images/img5.jpg", "images/img6.jpg"];
+const blankImage = "images/blank.png"; // Hidden state image
 
 // Duplicate each image to ensure pairs
 imageOptions.forEach(img => {

@@ -17,6 +17,7 @@ actualImages.sort(() => Math.random() - 0.5);
 let selectedImages = [];
 let selectedIndexes = [];
 let attempts = 0;
+let matches = 0; // Track matched pairs
 
 // Function to display the grid of blank images
 document.addEventListener("DOMContentLoaded", () => {
@@ -58,7 +59,15 @@ function checkMatch() {
 
     if (selectedImages[0] === selectedImages[1]) {
         // If they match, leave them visible
+        matches++; // Increase match count
         console.log("Match found!");
+
+        // If all matches are found, show Game Over message
+        if (matches === actualImages.length / 2) {
+            setTimeout(() => {
+                alert(`Game Over! You found all matches in ${attempts} attempts.`);
+            }, 500);
+        }
     } else {
         // If not, hide them again
         images[selectedIndexes[0]].src = "blank.png";

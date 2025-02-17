@@ -1,6 +1,6 @@
 #game-board {
     display: grid;
-    grid-template-columns: repeat(4, 100px); /* 4 columns */
+    grid-template-columns: repeat(4, 100px); 
     gap: 10px;
     justify-content: center;
     margin-top: 20px;

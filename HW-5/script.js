@@ -52,7 +52,7 @@ function checkMatch() {
 
         if (matches === actualImages.length / 2) {
             setTimeout(() => {
-                alert(`Game Over! You found all matches in ${attempts} attempts.`);
+                alert(`Game Over!`);
             }, 500);
         }
     } else {

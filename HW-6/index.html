@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Your Memory</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- User Info Form -->
+    <div id="user-form">
+        <h2>Enter Your Details</h2>
+        <form id="playerForm">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" required>
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" required>
+            <label for="age">Age:</label>
+            <input type="number" id="age" required>
+            <button type="submit">Start Game</button>
+        </form>
+    </div>
+
+    <!-- Game Board (Hidden Initially) -->
+    <div id="game-container" style="display: none;">
+        <h1>Test Your Memory</h1>
+        <div id="game-board"></div>
+    </div>
+
+    <!-- Final Results (Hidden Initially) -->
+    <div id="results" style="display: none;">
+        <h2>Game Over!</h2>
+        <p id="finalMessage"></p>
+        <button onclick="restartGame()">Play Again</button>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

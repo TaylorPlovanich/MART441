@@ -9,7 +9,7 @@ class ViewMasterImage {
 }
 
 const images = [
-    new ViewMasterImage("Equality Protest", "image1.jpg", "A march for equal rights.", "Jane Doe", "2018"),
+    new ViewMasterImage("Equality Protest", "images/1.jpg", "Women's Strike for Peace and Equality.", "Eugene Gordon", "1970"),
     new ViewMasterImage("Environmental Activism", "image2.jpg", "A protest against climate change.", "John Smith", "2020"),
     new ViewMasterImage("Historic Civil Rights", "image3.jpg", "A snapshot from the 1960s movement.", "Alex Brown", "1965"),
     new ViewMasterImage("Freedom Rally", "image4.jpg", "People demanding justice.", "Emily White", "2019"),

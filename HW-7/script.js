@@ -9,11 +9,11 @@ class ViewMasterImage {
 }
 
 const images = [
-    new ViewMasterImage("Equality Protest", "images/1.jpg.webp", "Women's Strike for Peace and Equality.", "Eugene Gordon", "1970"),
+    new ViewMasterImage("Equality Protest", "images/1.jpg", "Women's Strike for Peace and Equality.", "Eugene Gordon", "1970"),
     new ViewMasterImage("Environmental Activism", "images/2.jpg", "Environmental activists protest BLM timber sale.", "Chrissy Ewald", "2023"),
     new ViewMasterImage("Historic Civil Rights", "images/3.jpg", "Demonstrating on Behalf of School Integration 1959", "Bettmann / Contributor / ettmann / Getty", "1959"),
     new ViewMasterImage("Freedom Rally", "images/4.jpg", "Educators Rally for Freedom to Learn", "Brenda Álvarez and Mary Ellen Flannery", "2023"),
-    new ViewMasterImage("Youth for Change", "image5.jpg", "Young activists making a difference.", "Chris Green", "2021")
+    new ViewMasterImage("Indigenous rights protest", "images/5.jpg", "Native nations gather to stand up for Indigenous rights in the US", "Amanda J. Mason", "2019")
 ];
 
 function showRandomImage() {

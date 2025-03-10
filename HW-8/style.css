@@ -1,0 +1,36 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #111;
+    color: #fff;
+    font-family: sans-serif;
+    overflow: hidden;
+  }
+  
+  #art-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  #image {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    display: none;
+  }
+  
+  #text {
+    position: absolute;
+    font-size: 2rem;
+    display: none;
+  }
+  
+  #shape {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    display: none;
+  }
+  

@@ -7,9 +7,9 @@ $(document).ready(function () {
     ];
   
     const texts = [
-      "Create something new!",
-      "Art is freedom.",
-      "Keep exploring."
+      "Imagination is the gateway of reality",
+      "Your senses tell you what is, not what can be",
+      "Look inward"
     ];
   
     const shapes = ["circle", "square", "triangle"];

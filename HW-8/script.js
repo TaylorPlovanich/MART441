@@ -1,10 +1,10 @@
 $(document).ready(function () {
     // === Arrays ===
     const images = [
-      "https://via.placeholder.com/200x200/ff4444",
-      "https://via.placeholder.com/200x200/44ff44",
-      "https://via.placeholder.com/200x200/4444ff"
-    ];
+        "images/image1.jpg",
+        "images/image2.jpg",
+        "images/image3.jpg"
+      ];
   
     const texts = [
       "Imagination is the gateway of reality",

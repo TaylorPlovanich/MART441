@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $.getJSON("product-data.json", function(product) {
+    $.getJSON("productdata.json", function(product) {
       const html = `
         <h2>${product.product_name}</h2>
         <img src="${product.image_url}" alt="${product.product_name} Image">

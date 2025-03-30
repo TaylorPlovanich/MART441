@@ -115,3 +115,10 @@ function update() {
 
 // Start game loop
 update();
+
+window.addEventListener("DOMContentLoaded", function () {
+    const audio = document.getElementById("bgMusic");
+    audio.play().catch(error => {
+        console.log("Autoplay blocked. User interaction required.");
+    });
+});

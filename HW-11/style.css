@@ -1,0 +1,25 @@
+/* General page styling */
+body {
+    text-align: center;
+    background-color: lightgray;
+    font-family: Arial, sans-serif;
+}
+
+/* Title styling */
+h1 {
+    font-size: 24px;
+    color: black;
+}
+
+/* Canvas styling */
+canvas {
+    border: 5px solid black; /* Adds a nice border */
+    display: block;
+    margin: 20px auto; /* Centers the canvas */
+    background-color: white; /* Default background */
+}
+
+/* Styling for audio controls */
+audio {
+    margin-top: 10px;
+}

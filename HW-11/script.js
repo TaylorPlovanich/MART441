@@ -116,7 +116,8 @@ function update() {
 // Start game loop
 update();
 
-window.addEventListener("DOMContentLoaded", function () {
+// Add event listener to start audio when the page is clicked
+window.addEventListener("click", function () {
     const audio = document.getElementById("bgMusic");
     audio.play().catch(error => {
         console.log("Autoplay blocked. User interaction required.");

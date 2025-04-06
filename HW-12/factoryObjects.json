@@ -1,8 +1,7 @@
 [
-    { "name": "Conveyor Belt", "x": 50, "y": 200, "width": 300, "height": 20 },
-    { "name": "Robot Arm", "x": 200, "y": 100, "width": 40, "height": 20 },
-    { "name": "Robot Leg", "x": 300, "y": 150, "width": 40, "height": 20 },
-    { "name": "Robot Head", "x": 150, "y": 50, "width": 30, "height": 20 },
-    { "name": "Robot Body", "x": 100, "y": 120, "width": 60, "height": 40 }
-  ]
-  
+  { "name": "Conveyor Belt", "x": 50, "y": 200, "width": 300, "height": 20 },
+  { "name": "Robot Arm", "x": 200, "y": 100, "width": 40, "height": 20 },
+  { "name": "Robot Leg", "x": 300, "y": 150, "width": 40, "height": 20 },
+  { "name": "Robot Head", "x": 150, "y": 50, "width": 30, "height": 20 },
+  { "name": "Robot Body", "x": 100, "y": 120, "width": 60, "height": 40 }
+]

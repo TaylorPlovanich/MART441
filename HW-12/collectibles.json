@@ -1,6 +1,5 @@
 [
-    { "name": "Robot Head", "x": 250, "y": 50, "width": 30, "height": 20 },
-    { "name": "Robot Arm", "x": 350, "y": 150, "width": 40, "height": 20 },
-    { "name": "Robot Leg", "x": 450, "y": 120, "width": 40, "height": 20 }
-  ]
-  
+  { "name": "Battery", "x": 400, "y": 300, "width": 30, "height": 30 },
+  { "name": "Gear", "x": 500, "y": 200, "width": 30, "height": 30 },
+  { "name": "Wrench", "x": 600, "y": 150, "width": 30, "height": 30 }
+]

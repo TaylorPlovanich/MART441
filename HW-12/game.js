@@ -1,6 +1,53 @@
-// === Class Definitions ===
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
 
-// Obstacles (factory objects)
+let player;
+let factoryObjects = [];
+let collectibles = [];
+let score = 0;
+
+// Player class
+class Player {
+  constructor(x, y, width, height) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.speed = 5;
+  }
+
+  draw(ctx) {
+    ctx.fillStyle = "blue";
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+  }
+
+  moveUp() {
+    if (!this.collides(0, -this.speed)) this.y -= this.speed;
+  }
+
+  moveDown() {
+    if (!this.collides(0, this.speed)) this.y += this.speed;
+  }
+
+  moveLeft() {
+    if (!this.collides(-this.speed, 0)) this.x -= this.speed;
+  }
+
+  moveRight() {
+    if (!this.collides(this.speed, 0)) this.x += this.speed;
+  }
+
+  collides(dx, dy) {
+    return factoryObjects.some(obj =>
+      this.x + dx < obj.x + obj.width &&
+      this.x + dx + this.width > obj.x &&
+      this.y + dy < obj.y + obj.height &&
+      this.y + dy + this.height > obj.y
+    );
+  }
+}
+
+// Factory object class
 class FactoryObject {
   constructor(name, x, y, width, height) {
     this.name = name;
@@ -16,7 +63,7 @@ class FactoryObject {
   }
 }
 
-// Collectible items
+// Collectible class
 class Collectible {
   constructor(name, x, y, width, height) {
     this.name = name;
@@ -35,13 +82,11 @@ class Collectible {
   }
 
   collect(player) {
-    if (
-      !this.collected &&
+    if (!this.collected &&
       player.x < this.x + this.width &&
       player.x + player.width > this.x &&
       player.y < this.y + this.height &&
-      player.y + player.height > this.y
-    ) {
+      player.y + player.height > this.y) {
       this.collected = true;
       return true;
     }
@@ -49,61 +94,7 @@ class Collectible {
   }
 }
 
-// Player object
-class Player {
-  constructor(x, y, width, height) {
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
-    this.speed = 5;
-  }
-
-  draw(ctx) {
-    ctx.fillStyle = "blue";
-    ctx.fillRect(this.x, this.y, this.width, this.height);
-  }
-
-  moveUp() {
-    if (!this.collides(this.x, this.y - this.speed)) this.y -= this.speed;
-  }
-
-  moveDown() {
-    if (!this.collides(this.x, this.y + this.speed)) this.y += this.speed;
-  }
-
-  moveLeft() {
-    if (!this.collides(this.x - this.speed, this.y)) this.x -= this.speed;
-  }
-
-  moveRight() {
-    if (!this.collides(this.x + this.speed, this.y)) this.x += this.speed;
-  }
-
-  // Collision with obstacles
-  collides(newX, newY) {
-    return factoryObjects.some(obj =>
-      newX < obj.x + obj.width &&
-      newX + this.width > obj.x &&
-      newY < obj.y + obj.height &&
-      newY + this.height > obj.y
-    );
-  }
-}
-
-// === Main Game Setup ===
-
-const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
-
-let player = new Player(100, 100, 40, 40);
-let factoryObjects = [];
-let collectibles = [];
-let score = 0;
-
-// === Load JSON Data ===
-
-// Load factory objects (obstacles)
+// Load JSON files for objects and collectibles
 fetch('factoryObjects.json')
   .then(response => response.json())
   .then(data => {
@@ -112,7 +103,6 @@ fetch('factoryObjects.json')
     });
   });
 
-// Load collectibles
 fetch('collectibles.json')
   .then(response => response.json())
   .then(data => {
@@ -121,7 +111,10 @@ fetch('collectibles.json')
     });
   });
 
-// === Controls ===
+// Initialize player
+player = new Player(100, 100, 40, 40);
+
+// Handle player movement with arrow keys
 document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowUp") player.moveUp();
   if (e.key === "ArrowDown") player.moveDown();
@@ -129,12 +122,12 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowRight") player.moveRight();
 });
 
-// === Game Loop ===
+// Game loop
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Draw obstacles
-  factoryObjects.forEach(obj => obj.draw(ctx));
+  // Draw factory objects
+  factoryObjects.forEach(object => object.draw(ctx));
 
   // Draw and check collectibles
   collectibles.forEach(collectible => {
@@ -151,5 +144,4 @@ function gameLoop() {
   requestAnimationFrame(gameLoop);
 }
 
-// Start game
 gameLoop();

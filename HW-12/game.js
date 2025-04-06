@@ -132,6 +132,11 @@ function gameLoop() {
   // Draw player
   player.draw();
 
+  // Draw score
+  ctx.fillStyle = "black"; // Text color
+  ctx.font = "20px Arial"; // Font size and style
+  ctx.fillText("Score: " + score, 10, 30); // Position of the score on canvas
+
   requestAnimationFrame(gameLoop);
 }
 

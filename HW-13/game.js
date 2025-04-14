@@ -69,10 +69,18 @@ const config = {
     });
   
     // spikes
-    spikes = this.physics.add.group();
-    spikes.create(300, 0, 'spike');
-    spikes.create(500, 0, 'spike');
-  
+spikes = this.physics.add.group();
+
+const spike1 = spikes.create(300, 0, 'spike');
+const spike2 = spikes.create(500, 0, 'spike');
+
+spikes.children.iterate((spike) => {
+  spike.setBounce(1); // Full bounce
+  spike.setCollideWorldBounds(true); // So it doesn't disappear
+  spike.setVelocity(Phaser.Math.Between(-100, 100), 20); // Some motion
+  spike.allowGravity = true;
+});
+
     // collisions
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(stars, platforms);
@@ -96,7 +104,8 @@ const config = {
       player.setVelocityX(160);
     }
   
-    if (Phaser.Input.Keyboard.JustDown(spaceKey) && player.body.touching.down) {
+    // Fixed jump input using .blocked.down
+    if (Phaser.Input.Keyboard.JustDown(spaceKey) && player.body.blocked.down) {
       player.setVelocityY(-330);
     }
   }

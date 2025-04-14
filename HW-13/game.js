@@ -27,11 +27,11 @@ var game = new Phaser.Game(config);
 
 // Preload assets
 function preload() {
-  this.load.image('sky', 'assets/sky.png'); // Background image
-  this.load.image('ground', 'assets/platform.png'); // Ground image
-  this.load.image('star', 'assets/star.png'); // Star image
-  this.load.image('spike', 'assets/spike.png'); // Spike image
-  this.load.spritesheet('player', 'assets/player.png', { frameWidth: 32, frameHeight: 48 }); // Player sprite
+  this.load.image('sky', 'images/sky.png'); // Background image
+  this.load.image('ground', 'images/ground.jpg'); // Ground image
+  this.load.image('star', 'images/star.png'); // Star image
+  this.load.image('spike', 'images/spike.png'); // Spike image
+  this.load.spritesheet('player', 'images/player.png', { frameWidth: 32, frameHeight: 48 }); // Player sprite
 }
 
 // Create the game objects

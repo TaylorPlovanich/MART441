@@ -10,80 +10,93 @@ const config = {
       }
     },
     scene: {
-      preload,
-      create,
-      update
+      preload: preload,
+      create: create,
+      update: update
     }
   };
   
-  let player, stars, spikes, cursors, scoreText, levelText;
+  let player;
+  let cursors;
+  let spaceKey;
+  let stars;
+  let spikes;
+  let platforms;
   let score = 0;
-  let level = 1;
+  let scoreText;
   let gameOver = false;
   
   const game = new Phaser.Game(config);
   
   function preload() {
     this.load.image('sky', 'images/sky.png');
-    this.load.image('ground', 'images/ground.jpg');
+    this.load.image('ground', 'images/ground.png');
     this.load.image('star', 'images/star.png');
     this.load.image('spike', 'images/spike.png');
-    this.load.image('player', 'images/player.png');
+    this.load.image('player', 'images/player.png'); // Make sure this exists!
   }
   
   function create() {
+    // background
     this.add.image(400, 300, 'sky');
   
-    const platforms = this.physics.add.staticGroup();
-    platforms.create(400, 568, 'ground').setScale(1.6, 1).refreshBody();
+    // platforms
+    platforms = this.physics.add.staticGroup();
+    platforms.create(400, 568, 'ground').setScale(2).refreshBody();
+    platforms.create(600, 400, 'ground');
+    platforms.create(50, 250, 'ground');
+    platforms.create(750, 220, 'ground');
   
-    player = this.physics.add.sprite(100, 450, 'player').setScale(0.5);
+    // player
+    player = this.physics.add.sprite(100, 450, 'player');
     player.setBounce(0.2);
     player.setCollideWorldBounds(true);
   
+    // input
     cursors = this.input.keyboard.createCursorKeys();
+    spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
   
-    // Stars fall from the sky and land on ground
+    // stars
     stars = this.physics.add.group({
       key: 'star',
       repeat: 5,
-      setXY: { x: 12, y: 100, stepX: 120 }
+      setXY: { x: 12, y: 0, stepX: 120 }
     });
   
-    stars.children.iterate(star => {
-      star.setBounceY(0.2);
-      star.setGravityY(100);
+    stars.children.iterate(function (child) {
+      child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+      child.body.setGravityY(100); // Individual gravity
     });
   
+    // spikes
     spikes = this.physics.add.group();
-    const spike = spikes.create(400, 16, 'spike');
-    spike.setBounce(1);
-    spike.setCollideWorldBounds(true);
-    spike.setVelocity(Phaser.Math.Between(-200, 200), 20);
+    spikes.create(300, 0, 'spike');
+    spikes.create(500, 0, 'spike');
   
+    // collisions
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(stars, platforms);
     this.physics.add.collider(spikes, platforms);
   
     this.physics.add.overlap(player, stars, collectStar, null, this);
-    this.physics.add.collider(player, spikes, hitSpike, null, this);
+    this.physics.add.overlap(player, spikes, hitSpike, null, this);
   
-    scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '20px', fill: '#000' });
-    levelText = this.add.text(700, 16, 'Lvl: 1', { fontSize: '20px', fill: '#000' });
+    // score text
+    scoreText = this.add.text(16, 16, 'Stars: 0', { fontSize: '24px', fill: '#fff' });
   }
   
   function update() {
     if (gameOver) return;
   
+    player.setVelocityX(0);
+  
     if (cursors.left.isDown) {
       player.setVelocityX(-160);
     } else if (cursors.right.isDown) {
       player.setVelocityX(160);
-    } else {
-      player.setVelocityX(0);
     }
   
-    if (Phaser.Input.Keyboard.JustDown(cursors.space) && player.body.touching.down) {
+    if (Phaser.Input.Keyboard.JustDown(spaceKey) && player.body.touching.down) {
       player.setVelocityY(-330);
     }
   }
@@ -91,25 +104,7 @@ const config = {
   function collectStar(player, star) {
     star.disableBody(true, true);
     score += 10;
-    scoreText.setText('Score: ' + score);
-  
-    if (stars.countActive(true) === 0) {
-      level += 1;
-      levelText.setText('Lvl: ' + level);
-  
-      // Reset stars for next level
-      stars.children.iterate(star => {
-        star.enableBody(true, star.x, 100, true, true);
-        star.setBounceY(0.2);
-        star.setGravityY(100);
-      });
-  
-      // Add a new spike
-      const newSpike = spikes.create(Phaser.Math.Between(0, 800), 16, 'spike');
-      newSpike.setBounce(1);
-      newSpike.setCollideWorldBounds(true);
-      newSpike.setVelocity(Phaser.Math.Between(-200, 200), 20);
-    }
+    scoreText.setText('Stars: ' + score);
   }
   
   function hitSpike(player, spike) {

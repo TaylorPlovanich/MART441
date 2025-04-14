@@ -26,7 +26,7 @@ const config = {
   function preload() {
     // Load your own sprite files into the 'images/' folder
     this.load.image('sky', 'images/sky.png');
-    this.load.image('ground', 'images/ground.png');
+    this.load.image('ground', 'images/ground.jpg');
     this.load.image('star', 'images/star.png');
     this.load.image('spike', 'images/spike.png');
     this.load.image('player', 'images/player.png');

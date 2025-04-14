@@ -24,7 +24,6 @@ const config = {
   const game = new Phaser.Game(config);
   
   function preload() {
-    // Load your own sprite files into the 'images/' folder
     this.load.image('sky', 'images/sky.png');
     this.load.image('ground', 'images/ground.jpg');
     this.load.image('star', 'images/star.png');
@@ -44,15 +43,16 @@ const config = {
   
     cursors = this.input.keyboard.createCursorKeys();
   
+    // Stars fall from the sky and land on ground
     stars = this.physics.add.group({
       key: 'star',
       repeat: 5,
-      setXY: { x: 12, y: 0, stepX: 120 }
+      setXY: { x: 12, y: 100, stepX: 120 }
     });
   
     stars.children.iterate(star => {
-      star.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-      star.setGravityY(100); // Each star has gravity
+      star.setBounceY(0.2);
+      star.setGravityY(100);
     });
   
     spikes = this.physics.add.group();
@@ -94,17 +94,17 @@ const config = {
     scoreText.setText('Score: ' + score);
   
     if (stars.countActive(true) === 0) {
-      // Next level
       level += 1;
       levelText.setText('Lvl: ' + level);
   
-      // Reset stars
+      // Reset stars for next level
       stars.children.iterate(star => {
-        star.enableBody(true, star.x, 0, true, true);
+        star.enableBody(true, star.x, 100, true, true);
+        star.setBounceY(0.2);
         star.setGravityY(100);
       });
   
-      // Add a new spike every level
+      // Add a new spike
       const newSpike = spikes.create(Phaser.Math.Between(0, 800), 16, 'spike');
       newSpike.setBounce(1);
       newSpike.setCollideWorldBounds(true);

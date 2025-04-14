@@ -37,9 +37,6 @@ const config = {
   
     const platforms = this.physics.add.staticGroup();
     platforms.create(400, 568, 'ground').setScale(2).refreshBody();
-    platforms.create(600, 400, 'ground');
-    platforms.create(50, 250, 'ground');
-    platforms.create(750, 220, 'ground');
   
     player = this.physics.add.sprite(100, 450, 'player').setScale(0.5);
     player.setBounce(0.2);

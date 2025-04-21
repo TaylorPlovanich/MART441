@@ -17,11 +17,12 @@
 
 <body>
 
-  <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.module.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/examples/js/loaders/GLTFLoader.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/examples/js/controls/OrbitControls.js"></script>
+  <!-- Use ES Modules by setting the type attribute to module -->
+  <script type="module">
+    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.module.js';
+    import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.150.1/examples/js/loaders/GLTFLoader.js';
+    import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.150.1/examples/js/controls/OrbitControls.js';
 
-  <script>
     // Set up the scene
     var scene = new THREE.Scene();
     scene.background = new THREE.Color(0x222222);
@@ -36,7 +37,7 @@
     document.body.appendChild(renderer.domElement);
 
     // Set up OrbitControls for camera movement
-    var controls = new THREE.OrbitControls(camera, renderer.domElement);
+    var controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
 
     // Add some lights to the scene
@@ -47,9 +48,9 @@
     scene.add(pointLight);
 
     // Load your GLB model
-    var loader = new THREE.GLTFLoader();
+    var loader = new GLTFLoader();
     loader.load(
-      './models/box.glb', 
+      './models/box.glb', // Update this with your correct model path
       function (gltf) {
         var model = gltf.scene;
         model.scale.set(1, 1, 1);
@@ -77,6 +78,7 @@
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
   </script>
+
 </body>
 
 </html>

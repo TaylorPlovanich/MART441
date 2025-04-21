@@ -9,7 +9,7 @@ animate();
 
 function init() {
   scene = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+  camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
   camera.position.z = 5;
 
   renderer = new THREE.WebGLRenderer();
@@ -34,9 +34,9 @@ function init() {
   sphere.position.x = 2;
   scene.add(sphere);
 
-  // Load model
+  // Load model (change this to your actual model)
   const loader = new GLTFLoader();
-  loader.load('./models/yourModel.glb', function (gltf) {
+  loader.load('./models/Box.glb', function (gltf) { // Make sure the path is correct!
     model = gltf.scene;
     model.scale.set(1, 1, 1);
     model.position.y = -1;

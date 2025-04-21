@@ -10,11 +10,13 @@
 </head>
 <body>
 
-  <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/examples/js/loaders/GLTFLoader.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/examples/js/controls/OrbitControls.js"></script>
+  <!-- ✅ Three.js version compatible with OrbitControls -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.140.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.140.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.140.0/examples/js/controls/OrbitControls.js"></script>
 
   <script>
+    // Scene setup
     var scene = new THREE.Scene();
     scene.background = new THREE.Color(0x222222);
 
@@ -28,15 +30,18 @@
     var controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
 
-    var light = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(light);
+    // Lighting
+    var ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
+
     var pointLight = new THREE.PointLight(0xffffff, 1);
     pointLight.position.set(5, 5, 5);
     scene.add(pointLight);
 
+    // Load Box.glb from models folder
     var loader = new THREE.GLTFLoader();
     loader.load(
-      './models/Cube.glb',
+      './models/Box.glb',
       function (gltf) {
         var model = gltf.scene;
         model.scale.set(1, 1, 1);
@@ -48,6 +53,7 @@
       }
     );
 
+    // Animation loop
     function animate() {
       requestAnimationFrame(animate);
       controls.update();
@@ -55,6 +61,7 @@
     }
     animate();
 
+    // Handle window resizing
     window.addEventListener('resize', function () {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();

@@ -1,47 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <title>GLB Model Viewer</title>
   <style>
-    body { margin: 0; }
-    canvas { display: block; }
+    body {
+      margin: 0;
+    }
+
+    canvas {
+      display: block;
+    }
   </style>
 </head>
+
 <body>
 
-  <!-- ✅ Three.js version compatible with OrbitControls -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.140.0/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.140.0/examples/js/loaders/GLTFLoader.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.140.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.module.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/examples/js/controls/OrbitControls.js"></script>
 
   <script>
-    // Scene setup
+    // Set up the scene
     var scene = new THREE.Scene();
     scene.background = new THREE.Color(0x222222);
 
+    // Set up the camera
     var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.set(0, 1.5, 4);
 
+    // Set up the renderer
     var renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
+    // Set up OrbitControls for camera movement
     var controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
 
-    // Lighting
-    var ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
-
+    // Add some lights to the scene
+    var light = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(light);
     var pointLight = new THREE.PointLight(0xffffff, 1);
     pointLight.position.set(5, 5, 5);
     scene.add(pointLight);
 
-    // Load Box.glb from models folder
+    // Load your GLB model
     var loader = new THREE.GLTFLoader();
     loader.load(
-      './models/Box.glb',
+      './models/box.glb', 
       function (gltf) {
         var model = gltf.scene;
         model.scale.set(1, 1, 1);
@@ -56,9 +64,10 @@
     // Animation loop
     function animate() {
       requestAnimationFrame(animate);
-      controls.update();
-      renderer.render(scene, camera);
+      controls.update(); // Update camera controls
+      renderer.render(scene, camera); // Render the scene
     }
+
     animate();
 
     // Handle window resizing
@@ -69,4 +78,5 @@
     });
   </script>
 </body>
+
 </html>

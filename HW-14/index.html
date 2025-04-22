@@ -1,21 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Three.js Homework</title>
+  <meta charset="utf-8">
+  <title>Three.js Homework 14</title>
   <style>
-    body { margin: 0; overflow: hidden; }
+    body { margin: 0; }
     canvas { display: block; }
   </style>
-
-  <!-- ✅ Load Three.js and GLTFLoader -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/js/loaders/GLTFLoader.js"></script>
 </head>
 <body>
+  <!-- Load Three.js -->
+  <script src="https://unpkg.com/three@0.159.0/build/three.min.js"></script>
+  
+  <script>
+    // Set up scene, camera, renderer
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    var renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
 
-  <!-- ✅ Place this LAST so THREE is already defined -->
-  <script src="script.js"></script>
+    // Create cube
+    var geometry = new THREE.BoxGeometry();
+    var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    var cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+
+    // Create blue line
+    var lineMaterial = new THREE.LineBasicMaterial({ color: 0x0000ff });
+    var linePoints = [];
+    linePoints.push(new THREE.Vector3(-10, 0, 0));
+    linePoints.push(new THREE.Vector3(0, 10, 0));
+    linePoints.push(new THREE.Vector3(10, 0, 0));
+    var lineGeometry = new THREE.BufferGeometry().setFromPoints(linePoints);
+    var line = new THREE.Line(lineGeometry, lineMaterial);
+    scene.add(line);
+
+    // Set camera position
+    camera.position.z = 5;
+
+    // Animation loop
+    function animate() {
+      requestAnimationFrame(animate);
+      
+      // Rotate cube
+      cube.rotation.x += 0.01;
+      cube.rotation.y += 0.01;
+
+      // Render the scene
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  </script>
 </body>
 </html>

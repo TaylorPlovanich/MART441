@@ -1,25 +1,37 @@
-Project Title: Trivia Challenge (Early Version)
+HW Final Project (Early Checkpoint)
 
-Description:
-This project is the initial foundation for a JavaScript/jQuery-based quiz/trivia game.
-Currently, it features:
+Project Idea
 
-A Start Quiz button
-A basic question and answer system
-Score tracking using state
-localStorage to save the most recent score
-At this stage, the game simply asks the player a series of trivia questions, with the score increasing for each correct answer.
+For my final project, I decided to create a platformer game that incorporates trivia questions.
+The player controls a character that can move left and right, and they must answer trivia questions to progress.
 
-Future Development Plans:
-The final version will likely expand the gameplay significantly.
-Planned improvements include:
+The basic mechanics are:
 
-Adding more questions and categories (randomized).
-Introducing a timer for each question.
-Including feedback (such as "Correct!" or "Wrong!") after answering.
-Creating a game over screen with a replay option.
-Saving and displaying a high score from previous sessions.
-Adding simple platformer elements:
-Players may need to answer a trivia question correctly to unlock movement or progress to the next platform/level.
-If the player answers incorrectly, obstacles or challenges will appear.
-This hybrid trivia-platformer approach will aim to create a more interactive and dynamic experience for players rather than a traditional quiz alone.
+The player moves around on the screen using arrow keys.
+When the player reaches a certain point (in this case, a platform), a trivia question appears.
+If the player answers the trivia question correctly, they earn points and can continue moving forward.
+Right now, I’ve set up the very basic foundation:
+
+Player movement is working (left/right using arrow keys).
+A trivia question appears once the player reaches a certain point.
+The score updates based on correct answers.
+Future Plans
+
+I’m planning to expand the game significantly. Here are some ideas:
+
+Player Jumping & Gravity: Right now, there’s no jumping or gravity. I plan to add these features to make the platformer feel more dynamic.
+More Levels & Platforms: I want to add multiple levels, with different trivia questions and increasing difficulty.
+Timer: Each question could have a time limit to answer, adding more challenge.
+Game Over/Win Screen: I’ll add a start screen and a game over screen when the player finishes or loses.
+Saving Progress: The game will track high scores or levels completed, saving that data in localStorage.
+Coding Stuff So Far
+
+Right now, the game is using:
+
+State: Tracking the player’s position and score with JavaScript variables.
+Storage: I plan to use localStorage later to store high scores.
+JavaScript/jQuery:
+JavaScript handles the player movement and checks trivia answers.
+jQuery is used to handle DOM manipulation (showing and hiding trivia questions).
+Event Handling: The player moves using the left and right arrow keys. The trivia question appears once the player reaches a specific platform.
+This is just the beginning. Right now, the game is simple, but I plan to add more platforming mechanics and trivia features before the final version.

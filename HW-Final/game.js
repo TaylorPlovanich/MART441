@@ -1,3 +1,5 @@
+// Trivia Platformer Game - Advanced Version
+
 class Player {
   constructor(x, y) {
     this.x = x;
@@ -7,6 +9,7 @@ class Player {
     this.velocityY = 0;
     this.gravity = 0.5;
     this.speed = 5;
+    this.score = 0;
   }
 
   draw(ctx) {
@@ -29,11 +32,26 @@ class Player {
   jump() { if (this.y >= 350) this.velocityY = -10; }
 }
 
+class TriviaQuestion {
+  constructor(question, answers, correctAnswer) {
+    this.question = question;
+    this.answers = answers;
+    this.correctAnswer = correctAnswer;
+  }
+
+  isCorrect(answer) { return answer === this.correctAnswer; }
+}
+
+const questions = [
+  new TriviaQuestion("What is 2 + 2?", ["3", "4", "5"], "4"),
+  new TriviaQuestion("What is the capital of France?", ["Berlin", "Paris", "Madrid"], "Paris"),
+  new TriviaQuestion("Which planet is known as the Red Planet?", ["Earth", "Mars", "Jupiter"], "Mars")
+];
+
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 const player = new Player(100, 350);
-
-let score = 0;
+let currentQuestion = 0;
 
 // Handle player movement
 document.addEventListener("keydown", (e) => {
@@ -46,29 +64,41 @@ function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   player.update();
   player.draw(ctx);
-  checkTriviaTrigger();
+
+  if (player.x > 400) {
+    showQuestion();
+  }
+
   requestAnimationFrame(gameLoop);
 }
 
 gameLoop();
 
-function checkTriviaTrigger() {
-  if (player.x > 400) {
-    document.getElementById("question-container").style.display = "block";
-  }
+function showQuestion() {
+  const questionBox = document.getElementById("question-container");
+  questionBox.style.display = "block";
+
+  const question = questions[currentQuestion];
+  document.getElementById("question").textContent = question.question;
+
+  $(".answer").each(function(index) {
+    $(this).text(question.answers[index]);
+    $(this).data("answer", question.answers[index]);
+  });
 }
 
 $(document).ready(function() {
   $(".answer").click(function() {
     const answer = $(this).data("answer");
-    if (answer == 4) {
-      score += 10;
+    if (questions[currentQuestion].isCorrect(answer)) {
+      player.score += 10;
       alert("Correct!");
     } else {
       alert("Wrong! Try again.");
     }
 
+    currentQuestion = (currentQuestion + 1) % questions.length;
     document.getElementById("question-container").style.display = "none";
-    document.getElementById("score").textContent = "Score: " + score;
+    document.getElementById("score").textContent = "Score: " + player.score;
   });
 });

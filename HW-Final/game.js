@@ -1,104 +1,88 @@
-// Trivia Platformer Game - Advanced Version
+// Trivia Platformer Game - Advanced Phaser Version
 
-class Player {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-    this.width = 50;
-    this.height = 50;
-    this.velocityY = 0;
-    this.gravity = 0.5;
-    this.speed = 5;
-    this.score = 0;
-  }
+const config = {
+  type: Phaser.AUTO,
+  width: 800,
+  height: 600,
+  physics: {
+      default: 'arcade',
+      arcade: {
+          gravity: { y: 500 },
+          debug: false
+      }
+  },
+  scene: { preload, create, update }
+};
 
-  draw(ctx) {
-    ctx.fillStyle = "red";
-    ctx.fillRect(this.x, this.y, this.width, this.height);
-  }
-
-  update() {
-    this.y += this.velocityY;
-    this.velocityY += this.gravity;
-
-    if (this.y > 350) { // Ground level
-      this.y = 350;
-      this.velocityY = 0;
-    }
-  }
-
-  moveLeft() { this.x -= this.speed; }
-  moveRight() { this.x += this.speed; }
-  jump() { if (this.y >= 350) this.velocityY = -10; }
-}
-
-class TriviaQuestion {
-  constructor(question, answers, correctAnswer) {
-    this.question = question;
-    this.answers = answers;
-    this.correctAnswer = correctAnswer;
-  }
-
-  isCorrect(answer) { return answer === this.correctAnswer; }
-}
-
-const questions = [
-  new TriviaQuestion("What is 2 + 2?", ["3", "4", "5"], "4"),
-  new TriviaQuestion("What is the capital of France?", ["Berlin", "Paris", "Madrid"], "Paris"),
-  new TriviaQuestion("Which planet is known as the Red Planet?", ["Earth", "Mars", "Jupiter"], "Mars")
+let player, platforms, cursors, triviaText, scoreText;
+let score = 0;
+let currentQuestion = 0;
+let questions = [
+  { question: "What is 2 + 2?", answers: ["3", "4", "5"], correct: "4" },
+  { question: "What is the capital of France?", answers: ["Berlin", "Paris", "Madrid"], correct: "Paris" }
 ];
 
-const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
-const player = new Player(100, 350);
-let currentQuestion = 0;
+const game = new Phaser.Game(config);
 
-// Handle player movement
-document.addEventListener("keydown", (e) => {
-  if (e.key === "ArrowLeft") player.moveLeft();
-  if (e.key === "ArrowRight") player.moveRight();
-  if (e.key === "Space") player.jump();
-});
+function preload() {
+  this.load.image('sky', 'images/sky.png');
+  this.load.image('ground', 'images/ground.png');
+  this.load.image('star', 'images/star.png');
+  this.load.image('spike', 'images/spike.png');
+  this.load.image('player', 'images/player.png');
+}
 
-function gameLoop() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  player.update();
-  player.draw(ctx);
+function create() {
+  this.add.image(400, 300, 'sky');
 
-  if (player.x > 400) {
-    showQuestion();
+  platforms = this.physics.add.staticGroup();
+  platforms.create(400, 568, 'ground').setScale(2).refreshBody();
+
+  player = this.physics.add.sprite(100, 450, 'player');
+  player.setBounce(0.2);
+  player.setCollideWorldBounds(true);
+
+  cursors = this.input.keyboard.createCursorKeys();
+
+  this.physics.add.collider(player, platforms);
+
+  triviaText = this.add.text(16, 16, 'Reach the trivia area!', { fontSize: '24px', fill: '#fff' });
+  scoreText = this.add.text(16, 50, 'Score: 0', { fontSize: '24px', fill: '#fff' });
+}
+
+function update() {
+  player.setVelocityX(0);
+
+  if (cursors.left.isDown) {
+      player.setVelocityX(-160);
+  } else if (cursors.right.isDown) {
+      player.setVelocityX(160);
   }
 
-  requestAnimationFrame(gameLoop);
+  if (cursors.up.isDown && player.body.blocked.down) {
+      player.setVelocityY(-330);
+  }
+
+  if (player.x > 400) {
+      showQuestion(this);
+  }
 }
 
-gameLoop();
+function showQuestion(scene) {
+  if (currentQuestion >= questions.length) return;
 
-function showQuestion() {
-  const questionBox = document.getElementById("question-container");
-  questionBox.style.display = "block";
+  const q = questions[currentQuestion];
+  triviaText.setText(q.question);
 
-  const question = questions[currentQuestion];
-  document.getElementById("question").textContent = question.question;
-
-  $(".answer").each(function(index) {
-    $(this).text(question.answers[index]);
-    $(this).data("answer", question.answers[index]);
+  scene.input.once('pointerdown', (pointer) => {
+      const answer = prompt(q.question + "\n" + q.answers.join(" / "));
+      if (answer === q.correct) {
+          score += 10;
+          scoreText.setText('Score: ' + score);
+          triviaText.setText('Correct! Move forward.');
+      } else {
+          triviaText.setText('Wrong! Try again.');
+      }
+      currentQuestion++;
   });
 }
-
-$(document).ready(function() {
-  $(".answer").click(function() {
-    const answer = $(this).data("answer");
-    if (questions[currentQuestion].isCorrect(answer)) {
-      player.score += 10;
-      alert("Correct!");
-    } else {
-      alert("Wrong! Try again.");
-    }
-
-    currentQuestion = (currentQuestion + 1) % questions.length;
-    document.getElementById("question-container").style.display = "none";
-    document.getElementById("score").textContent = "Score: " + player.score;
-  });
-});

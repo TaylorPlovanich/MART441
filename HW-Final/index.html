@@ -1,25 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trivia Platformer Game</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Platformer Trivia Game</title>
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+  <style>
+    body { margin: 0; padding: 0; }
+    canvas { display: block; margin: 0 auto; }
+  </style>
 </head>
 <body>
-  <h1>Trivia Platformer Game</h1>
-  <div id="game-container">
-    <canvas id="gameCanvas" width="800" height="400"></canvas>
-    <div id="question-container" class="hidden">
-      <p id="question">What is 2 + 2?</p>
-      <button class="answer" data-answer="3">3</button>
-      <button class="answer" data-answer="4">4</button>
-      <button class="answer" data-answer="5">5</button>
-    </div>
-    <div id="score">Score: 0</div>
-  </div>
-
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="game.js"></script>
 </body>
 </html>

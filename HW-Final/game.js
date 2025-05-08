@@ -33,7 +33,7 @@ function create() {
   background.setDisplaySize(this.scale.width, this.scale.height);
 
   // Player
-  player = this.physics.add.sprite(400, 500, 'player').setScale(0.6);
+  player = this.physics.add.sprite(400, 500, 'player').setScale(0.2);
   player.setCollideWorldBounds(true);
 
   // Lasers

@@ -32,7 +32,8 @@ function create() {
   // Add instructions above the game
   const instructions = this.add.text(400, 20, 'Use arrow keys to move. Press spacebar to shoot.', {
     fontSize: '18px',
-    fill: '#fff'
+    fill: '#fff',
+    wordWrap: { width: 780 }
   }).setOrigin(0.5);
 
   // Background

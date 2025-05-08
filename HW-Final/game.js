@@ -17,7 +17,7 @@ const config = {
   }
 };
 
-let player, cursors, lasers, enemies, score = 0, level = 1, scoreText, gameOverText, gameOverClicked = false;
+let player, cursors, lasers, enemies, score = 0, level = 1, scoreText, gameOverText, gameOverClicked = false, winText;
 let game = new Phaser.Game(config);
 
 function preload() {
@@ -43,7 +43,7 @@ function create() {
   player = this.physics.add.sprite(400, 500, 'player').setScale(0.5);
   player.setCollideWorldBounds(true);
 
-  // Lasers (no maxSize to allow unlimited firing)
+  // Lasers
   lasers = this.physics.add.group({
     classType: Phaser.Physics.Arcade.Image,
     defaultKey: 'laser'
@@ -56,16 +56,21 @@ function create() {
   // Score and Level
   scoreText = this.add.text(16, 40, 'Score: 0', { fontSize: '24px', fill: '#fff' });
 
-  // Game Over Text (hidden initially)
+  // Game Over and Win Texts (hidden initially)
   gameOverText = this.add.text(400, 300, 'Game Over! Click to Restart', { 
     fontSize: '48px', 
     fill: '#ff0000' 
   }).setOrigin(0.5).setVisible(false);
 
+  winText = this.add.text(400, 300, 'You Win! Click to Restart', { 
+    fontSize: '48px', 
+    fill: '#00ff00' 
+  }).setOrigin(0.5).setVisible(false);
+
   // Controls
   cursors = this.input.keyboard.createCursorKeys();
 
-  // Click to restart after game over
+  // Click to restart after game over or win
   this.input.on('pointerdown', function() {
     if (gameOverClicked) {
       restartGame();
@@ -75,6 +80,11 @@ function create() {
 }
 
 function update() {
+  if (score >= 1000) {
+    playerWin();
+    return;
+  }
+
   // Player movement
   player.setVelocityX(0);
 
@@ -154,37 +164,38 @@ function destroyEnemy(laser, enemy) {
 
 // Handle game over scenario
 function gameOver(player, enemy) {
-  // Store the high score
   const highscore = Math.max(score, localStorage.getItem('highscore') || 0);
   localStorage.setItem('highscore', highscore);
 
-  // Display game over text
   gameOverText.setVisible(true);
   gameOverClicked = true;
 
-  // Stop all physics and set velocity to zero
+  player.setVelocity(0);
+  enemies.setVelocityY(0);
+}
+
+// Player win scenario
+function playerWin() {
+  winText.setVisible(true);
+  gameOverClicked = true;
   player.setVelocity(0);
   enemies.setVelocityY(0);
 }
 
 // Restart the game
 function restartGame() {
-  // Reset score and enemies
   score = 0;
   level = 1;
   scoreText.setText('Score: ' + score);
 
-  // Hide game over text and restart the physics
   gameOverText.setVisible(false);
+  winText.setVisible(false);
 
-  // Reset the player position
   player.setPosition(400, 500);
 
-  // Reset enemies and spawn new ones
   enemies.clear(true, true);
   spawnEnemies();
 
-  // Resume the game and restart the physics
   enemies.setVelocityY(100);
   player.setVelocity(0);
 }
@@ -194,7 +205,6 @@ function levelUp() {
   level = 2;
   scoreText.setText('Score: ' + score + ' | Level 2!');
   
-  // Spawn more difficult enemies
   enemies.clear(true, true);
   spawnEnemies();
 }

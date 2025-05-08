@@ -58,6 +58,7 @@ function create() {
 
   // Collision
   this.physics.add.collider(player, platforms);
+  this.physics.add.collider(triviaAreas, platforms); // Ensure trivia areas are on platforms
 
   triviaAreas.forEach((area, index) => {
     this.physics.add.overlap(player, area, () => askTrivia(index, area), null, this);

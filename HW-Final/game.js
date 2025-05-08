@@ -36,7 +36,7 @@ function create() {
   player = this.physics.add.sprite(400, 500, 'player').setScale(0.5);
   player.setCollideWorldBounds(true);
 
-  // Lasers (no maxSize to allow unlimited firing)
+  // Lasers
   lasers = this.physics.add.group({
     classType: Phaser.Physics.Arcade.Image,
     defaultKey: 'laser'
@@ -53,6 +53,9 @@ function create() {
 
   // Controls
   cursors = this.input.keyboard.createCursorKeys();
+
+  // Collision between player and enemies
+  this.physics.add.collider(player, enemies, gameOver, null, this);
 }
 
 function update() {
@@ -99,7 +102,7 @@ function fireLaser() {
 function spawnEnemy() {
   let x = Phaser.Math.Between(50, 750);
   let enemy = enemies.create(x, 0, 'enemy').setScale(0.2);
-  enemy.setVelocityY(100); // Falling speed
+  enemy.setVelocityY(100);
 }
 
 function resetEnemy(enemy) {
@@ -113,7 +116,12 @@ function destroyEnemy(laser, enemy) {
   enemy.destroy();
   score += 10;
   scoreText.setText('Score: ' + score);
-  
+
   // Spawn a new enemy when one is destroyed
   spawnEnemy();
+}
+
+function gameOver() {
+  this.scene.restart(); // Restart the game
+  score = 0; // Reset score
 }

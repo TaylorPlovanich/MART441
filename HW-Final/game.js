@@ -17,7 +17,7 @@ const config = {
   }
 };
 
-let player, cursors, lasers, enemies, score = 0, level = 1, scoreText, gameOverText;
+let player, cursors, lasers, enemies, score = 0, level = 1, scoreText, gameOverText, gameOverClicked = false;
 let game = new Phaser.Game(config);
 
 function preload() {
@@ -55,6 +55,14 @@ function create() {
 
   // Controls
   cursors = this.input.keyboard.createCursorKeys();
+
+  // Click to restart after game over
+  this.input.on('pointerdown', function() {
+    if (gameOverClicked) {
+      restartGame();
+      gameOverClicked = false;
+    }
+  });
 }
 
 function update() {
@@ -143,19 +151,11 @@ function gameOver(player, enemy) {
 
   // Display game over text
   gameOverText.setVisible(true);
+  gameOverClicked = true;
 
   // Stop all physics and set velocity to zero
   player.setVelocity(0);
   enemies.setVelocityY(0);
-
-  // Show the restart button using jQuery
-  $('#restart-button').show();
-
-  // Use jQuery to handle restart button click
-  $('#restart-button').on('click', function() {
-    restartGame();
-    $(this).hide(); // Hide restart button after click
-  });
 }
 
 // Restart the game

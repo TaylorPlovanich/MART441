@@ -24,7 +24,7 @@ function preload() {
   this.load.image('player', 'images/player.png');
   this.load.image('bullet', 'images/bullet.png');
   this.load.image('enemy', 'images/enemy.png');
-  this.load.image('background', 'images/background.png');
+  this.load.image('background', 'images/background.jpg');
 }
 
 function create() {

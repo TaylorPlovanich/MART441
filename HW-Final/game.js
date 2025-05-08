@@ -29,64 +29,51 @@ function preload() {
 }
 
 function create() {
-  // Background
   this.add.image(400, 300, 'sky');
 
-  // Platforms (7 Total)
   const platforms = this.physics.add.staticGroup();
   platforms.create(400, 568, 'ground').setScale(2).refreshBody();
-  platforms.create(600, 400, 'ground');
-  platforms.create(200, 300, 'ground');
-  platforms.create(400, 200, 'ground');
-  platforms.create(700, 150, 'ground');
+  platforms.create(200, 450, 'ground');
+  platforms.create(600, 350, 'ground');
+  platforms.create(300, 250, 'ground');
+  platforms.create(500, 150, 'ground');
+  platforms.create(700, 100, 'ground');
   platforms.create(100, 100, 'ground');
-  platforms.create(300, 250, 'ground'); // 7th Platform
 
-  // Player
-  player = this.physics.add.sprite(100, 450, 'player');
+  player = this.physics.add.sprite(100, 500, 'player');
   player.setBounce(0.2);
   player.setCollideWorldBounds(true);
 
-  // Controls
   cursors = this.input.keyboard.createCursorKeys();
 
-  // Trivia Areas (Linked to Platforms)
-  triviaAreas.push(this.physics.add.staticSprite(600, 380, 'triviaArea'));
-  triviaAreas.push(this.physics.add.staticSprite(200, 280, 'triviaArea'));
-  triviaAreas.push(this.physics.add.staticSprite(400, 180, 'triviaArea'));
-  triviaAreas.push(this.physics.add.staticSprite(700, 130, 'triviaArea'));
+  triviaAreas.push(this.physics.add.staticSprite(200, 430, 'triviaArea'));
+  triviaAreas.push(this.physics.add.staticSprite(600, 330, 'triviaArea'));
+  triviaAreas.push(this.physics.add.staticSprite(300, 230, 'triviaArea'));
+  triviaAreas.push(this.physics.add.staticSprite(500, 130, 'triviaArea'));
+  triviaAreas.push(this.physics.add.staticSprite(700, 80, 'triviaArea'));
   triviaAreas.push(this.physics.add.staticSprite(100, 80, 'triviaArea'));
-  triviaAreas.push(this.physics.add.staticSprite(300, 230, 'triviaArea')); // New trivia area
-  triviaAreas.push(this.physics.add.staticSprite(500, 380, 'triviaArea')); // New trivia area
 
-  // Collision
   this.physics.add.collider(player, platforms);
 
   triviaAreas.forEach((area, index) => {
     this.physics.add.overlap(player, area, () => askTrivia(index, area), null, this);
   });
 
-  // Score Text
   scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '24px', fill: '#fff' });
 }
 
 function update() {
   player.setVelocityX(0);
 
-  if (cursors.left.isDown) {
-    player.setVelocityX(-160);
-  } else if (cursors.right.isDown) {
-    player.setVelocityX(160);
-  }
+  if (cursors.left.isDown) player.setVelocityX(-160);
+  else if (cursors.right.isDown) player.setVelocityX(160);
 
-  if (cursors.space.isDown && player.body.blocked.down) {
-    player.setVelocityY(-330);
-  }
+  if (cursors.space.isDown && player.body.blocked.down) player.setVelocityY(-330);
 }
 
 function askTrivia(index, area) {
   if (!triviaAnswered[index]) {
-    let questions = [
+    const questions = [
       'What is 2 + 2?',
       'What is the capital of France?',
       'What color is the sky on a clear day?',
@@ -96,9 +83,9 @@ function askTrivia(index, area) {
       'What is the largest ocean on Earth?'
     ];
 
-    let answers = ['4', 'Paris', 'Blue', '8', 'Harper Lee', 'Mars', 'Pacific'];
+    const answers = ['4', 'Paris', 'Blue', '8', 'Harper Lee', 'Mars', 'Pacific'];
 
-    let answer = prompt(questions[index]);
+    const answer = prompt(questions[index]);
     if (answer.toLowerCase() === answers[index].toLowerCase()) {
       score += 10;
       scoreText.setText('Score: ' + score);

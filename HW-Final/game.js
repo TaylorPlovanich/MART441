@@ -36,7 +36,7 @@ function create() {
   const platforms = this.physics.add.staticGroup();
   platforms.create(400, 568, 'ground').setScale(2).refreshBody();
   platforms.create(600, 400, 'ground');
-  platforms.create(200, 300, 'ground');
+  platforms.create(200, 300, 'ground').refreshBody(); // Adjusted
   platforms.create(400, 200, 'ground');
   platforms.create(700, 150, 'ground');
   platforms.create(100, 100, 'ground');
@@ -58,7 +58,6 @@ function create() {
 
   // Collision
   this.physics.add.collider(player, platforms);
-  this.physics.add.collider(triviaAreas, platforms); // Ensure trivia areas are on platforms
 
   triviaAreas.forEach((area, index) => {
     this.physics.add.overlap(player, area, () => askTrivia(index, area), null, this);

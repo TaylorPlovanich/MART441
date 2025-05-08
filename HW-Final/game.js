@@ -123,7 +123,7 @@ function fireLaser() {
 
   if (!laser) {
     laser = lasers.create(player.x, player.y - 20, 'laser');
-    laser.setScale(0.1);
+    laser.setScale(0.5);
     laser.setActive(true);
     laser.setVisible(true);
     laser.body.velocity.y = -300;

@@ -17,9 +17,9 @@ const config = {
   }
 };
 
-let player, cursors, triviaArea, score = 0, scoreText;
+let player, cursors, triviaAreas = [], score = 0, scoreText;
 let game = new Phaser.Game(config);
-let triviaAnswered = false;
+let triviaAnswered = [false, false, false, false, false];
 
 function preload() {
   this.load.image('sky', 'images/sky.png');
@@ -37,6 +37,9 @@ function create() {
   platforms.create(400, 568, 'ground').setScale(2).refreshBody();
   platforms.create(600, 400, 'ground');
   platforms.create(200, 300, 'ground');
+  platforms.create(400, 200, 'ground');
+  platforms.create(700, 150, 'ground');
+  platforms.create(100, 100, 'ground');
 
   // Player
   player = this.physics.add.sprite(100, 450, 'player');
@@ -46,12 +49,19 @@ function create() {
   // Controls
   cursors = this.input.keyboard.createCursorKeys();
 
-  // Trivia Area
-  triviaArea = this.physics.add.staticSprite(600, 380, 'triviaArea'); // Slightly above the platform
+  // Trivia Areas
+  triviaAreas.push(this.physics.add.staticSprite(600, 380, 'triviaArea'));
+  triviaAreas.push(this.physics.add.staticSprite(200, 280, 'triviaArea'));
+  triviaAreas.push(this.physics.add.staticSprite(400, 180, 'triviaArea'));
+  triviaAreas.push(this.physics.add.staticSprite(700, 130, 'triviaArea'));
+  triviaAreas.push(this.physics.add.staticSprite(100, 80, 'triviaArea'));
 
   // Collision
   this.physics.add.collider(player, platforms);
-  this.physics.add.overlap(player, triviaArea, askTrivia, null, this);
+
+  triviaAreas.forEach((area, index) => {
+    this.physics.add.overlap(player, area, () => askTrivia(index, area), null, this);
+  });
 
   // Score Text
   scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '24px', fill: '#fff' });
@@ -71,14 +81,24 @@ function update() {
   }
 }
 
-function askTrivia() {
-  if (!triviaAnswered) {
-    let answer = prompt('What is 2 + 2?');
-    if (answer === '4') {
+function askTrivia(index, area) {
+  if (!triviaAnswered[index]) {
+    let questions = [
+      'What is 2 + 2?',
+      'What is the capital of France?',
+      'What color is the sky on a clear day?',
+      'What is the square root of 64?',
+      'Who wrote "To Kill a Mockingbird"?'
+    ];
+
+    let answers = ['4', 'Paris', 'Blue', '8', 'Harper Lee'];
+
+    let answer = prompt(questions[index]);
+    if (answer.toLowerCase() === answers[index].toLowerCase()) {
       score += 10;
       scoreText.setText('Score: ' + score);
-      triviaAnswered = true; // Prevents the question from repeating
-      triviaArea.destroy(); // Makes the trivia area disappear, not the platform
+      triviaAnswered[index] = true;
+      area.destroy();
     } else {
       alert('Incorrect! Try again.');
     }

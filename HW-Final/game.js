@@ -23,7 +23,7 @@ let game = new Phaser.Game(config);
 function preload() {
   this.load.image('background', 'images/background.jpg');
   this.load.image('player', 'images/player2.png');
-  this.load.image('enemy', 'images/enemy.png');
+  this.load.image('enemy', 'images/enemy2.png');
   this.load.image('laser', 'images/laser2.png');
 }
 
@@ -37,16 +37,12 @@ function create() {
   player.setCollideWorldBounds(true);
 
   // Lasers
-  lasers = this.physics.add.group({
-    classType: Phaser.Physics.Arcade.Image,
-    defaultKey: 'laser2',
-    maxSize: 10
-  });
+  lasers = this.physics.add.group({ classType: Phaser.Physics.Arcade.Image, runChildUpdate: true });
 
   // Enemies
   enemies = this.physics.add.group();
   for (let i = 0; i < 5; i++) {
-    let enemy = enemies.create(100 + i * 120, 100, 'enemy').setScale(0.2);
+    let enemy = enemies.create(100 + i * 120, 100, 'enemy2').setScale(0.2);
     enemy.setVelocityX(100);
   }
 
@@ -79,17 +75,21 @@ function update() {
   });
 
   // Laser and enemy collision
-  this.physics.world.collide(lasers, enemies, destroyEnemy, null, this);
+  this.physics.world.overlap(lasers, enemies, destroyEnemy, null, this);
+
+  // Remove off-screen lasers
+  lasers.children.iterate((laser) => {
+    if (laser.y < 0) laser.destroy();
+  });
 }
 
 function fireLaser() {
-  let laser = lasers.get(player.x, player.y - 20);
+  const laser = lasers.get(player.x, player.y - 20, 'laser');
 
-  if (laser) {
-    laser.setActive(true);
-    laser.setVisible(true);
-    laser.body.velocity.y = -300;
-    laser.setScale(0.1);
+  if (!laser) {
+    const newLaser = this.physics.add.image(player.x, player.y - 20, 'laser').setScale(0.1);
+    newLaser.setVelocityY(-300);
+    lasers.add(newLaser);
   }
 }
 

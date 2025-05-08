@@ -1,111 +1,90 @@
-// Space Invaders Game in Phaser (Enhanced)
-const config = {
-  type: Phaser.AUTO,
-  width: 800,
-  height: 600,
-  physics: {
-    default: 'arcade',
-    arcade: {
-      debug: false
-    }
-  },
-  scene: {
-    preload: preload,
-    create: create,
-    update: update
-  }
+// Space Invaders Game Setup
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+
+canvas.width = 800;
+canvas.height = 600;
+
+// Player settings
+const player = {
+  x: canvas.width / 2 - 25,
+  y: canvas.height - 50,
+  width: 50,
+  height: 20,
+  speed: 7,
+  bullets: []
 };
 
-let player, cursors, bullets, enemies, score = 0, scoreText, gameOver = false;
+// Enemy settings
+const enemies = [];
+const enemyRows = 3;
+const enemyCols = 8;
+const enemyWidth = 40;
+const enemyHeight = 30;
+const enemyPadding = 10;
+const enemyOffsetTop = 50;
+const enemyOffsetLeft = 70;
 
-const game = new Phaser.Game(config);
-
-function preload() {
-  this.load.image('player', 'images/player.png');
-  this.load.image('bullet', 'images/bullet.png');
-  this.load.image('enemy', 'images/enemy.png');
-  this.load.image('background', 'images/background.jpg');
+// Generate enemies
+for (let row = 0; row < enemyRows; row++) {
+  for (let col = 0; col < enemyCols; col++) {
+    enemies.push({
+      x: col * (enemyWidth + enemyPadding) + enemyOffsetLeft,
+      y: row * (enemyHeight + enemyPadding) + enemyOffsetTop,
+      width: enemyWidth,
+      height: enemyHeight,
+      isAlive: true
+    });
+  }
 }
 
-function create() {
-  // Background
-  this.add.tileSprite(400, 300, 800, 600, 'background');
+// Player movement
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowLeft') player.x -= player.speed;
+  if (e.key === 'ArrowRight') player.x += player.speed;
+  if (e.key === ' ') player.bullets.push({ x: player.x + 22, y: player.y, speed: 5 });
+});
 
-  // Player
-  player = this.physics.add.sprite(400, 550, 'player');
-  player.setCollideWorldBounds(true);
+// Game loop
+function gameLoop() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Bullets group
-  bullets = this.physics.add.group({
-    defaultKey: 'bullet',
-    maxSize: 10
+  // Draw player
+  ctx.fillStyle = 'green';
+  ctx.fillRect(player.x, player.y, player.width, player.height);
+
+  // Draw bullets
+  player.bullets.forEach((bullet, index) => {
+    bullet.y -= bullet.speed;
+    ctx.fillRect(bullet.x, bullet.y, 5, 10);
+
+    // Remove bullet if off-screen
+    if (bullet.y < 0) player.bullets.splice(index, 1);
   });
 
-  // Enemies group
-  enemies = this.physics.add.group();
-  spawnEnemies(this);
+  // Draw enemies
+  enemies.forEach((enemy, index) => {
+    if (enemy.isAlive) {
+      ctx.fillStyle = 'red';
+      ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
 
-  // Controls
-  cursors = this.input.keyboard.createCursorKeys();
-
-  // Score text
-  scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '24px', fill: '#fff' });
-
-  // Bullet collision with enemies
-  this.physics.add.overlap(bullets, enemies, destroyEnemy, null, this);
-}
-
-function update() {
-  if (gameOver) return;
-
-  player.setVelocity(0);
-
-  if (cursors.left.isDown) {
-    player.setVelocityX(-300);
-  } else if (cursors.right.isDown) {
-    player.setVelocityX(300);
-  }
-
-  if (Phaser.Input.Keyboard.JustDown(cursors.space)) {
-    shootBullet(this);
-  }
-
-  // Check if any enemy reached the bottom
-  enemies.children.iterate(enemy => {
-    if (enemy.y > 600) {
-      endGame(this);
+      // Bullet collision with enemy
+      player.bullets.forEach((bullet, bulletIndex) => {
+        if (
+          bullet.x < enemy.x + enemy.width &&
+          bullet.x + 5 > enemy.x &&
+          bullet.y < enemy.y + enemy.height &&
+          bullet.y + 10 > enemy.y
+        ) {
+          enemy.isAlive = false;
+          player.bullets.splice(bulletIndex, 1);
+        }
+      });
     }
   });
+
+  requestAnimationFrame(gameLoop);
 }
 
-function shootBullet(scene) {
-  if (bullets.getTotalFree() > 0) {
-    let bullet = bullets.get(player.x, player.y - 20);
-    bullet.setActive(true).setVisible(true).setVelocityY(-400);
-  }
-}
-
-function spawnEnemies(scene) {
-  for (let y = 50; y < 250; y += 60) {
-    for (let x = 80; x < 750; x += 80) {
-      let enemy = enemies.create(x, y, 'enemy');
-      enemy.setVelocityY(Phaser.Math.Between(20, 60));
-      enemy.setCollideWorldBounds(true);
-      enemy.setBounceX(1);
-      enemy.setVelocityX(Phaser.Math.Between(-50, 50));
-    }
-  }
-}
-
-function destroyEnemy(bullet, enemy) {
-  bullet.destroy();
-  enemy.destroy();
-  score += 10;
-  scoreText.setText('Score: ' + score);
-}
-
-function endGame(scene) {
-  gameOver = true;
-  this.add.text(300, 300, 'Game Over', { fontSize: '48px', fill: '#ff0000' });
-  this.physics.pause();
-}
+// Start the game
+gameLoop();

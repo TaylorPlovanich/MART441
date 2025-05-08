@@ -25,7 +25,7 @@ function preload() {
   this.load.image('forest', 'images/forest.jpeg');
   this.load.image('ground', 'images/ground.jpeg');
   this.load.image('player', 'images/player.png');
-  this.load.image('triviaArea', 'images/triviaArea.png');
+  this.load.image('triviaArea', 'images/triviaArea.jpeg');
 }
 
 function create() {

@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Space Shooter Game</title>
-  <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
-  <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-    }
-    canvas {
-      display: block;
-      margin: 0 auto;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phaser Game with jQuery</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+  <!-- Game Canvas -->
+  <div id="game-container">
+    <canvas id="phaser-game"></canvas>
+  </div>
+
+  <!-- jQuery-controlled Restart Button -->
+  <button id="restart-button" style="display: none;">Restart Game</button>
+
+  <script src="phaser.min.js"></script>
   <script src="game.js"></script>
 </body>
 </html>

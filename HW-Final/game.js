@@ -33,13 +33,13 @@ function create() {
   background.setDisplaySize(this.scale.width, this.scale.height);
 
   // Player
-  player = this.physics.add.sprite(400, 500, 'player2').setScale(0.5);
+  player = this.physics.add.sprite(400, 500, 'player').setScale(0.5);
   player.setCollideWorldBounds(true);
 
   // Lasers (no maxSize to allow unlimited firing)
   lasers = this.physics.add.group({
     classType: Phaser.Physics.Arcade.Image,
-    defaultKey: 'laser2'
+    defaultKey: 'laser'
   });
 
   // Enemies

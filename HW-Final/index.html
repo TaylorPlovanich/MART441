@@ -6,28 +6,43 @@
   <title>Phaser Game with jQuery</title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <style>
-    #instructions {
-      font-size: 18px;
-      color: #fff;
-      text-align: center;
-      margin-top: 10px;
-    }
     body {
       background-color: #000;
       color: #fff;
       font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    #instructions {
+      font-size: 16px;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    #game-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+    canvas {
+      display: block;
     }
   </style>
 </head>
 <body>
-  <!-- Game Canvas -->
-  <div id="game-container">
-    <canvas id="phaser-game"></canvas>
-  </div>
-
   <!-- Instructions -->
   <div id="instructions">
     Use arrow keys to move. Press spacebar to shoot.
+  </div>
+
+  <!-- Game Canvas -->
+  <div id="game-container">
+    <canvas id="phaser-game"></canvas>
   </div>
 
   <!-- jQuery-controlled Restart Button -->

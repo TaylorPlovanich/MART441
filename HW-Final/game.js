@@ -1,90 +1,80 @@
-// Space Invaders Game Setup
-const canvas = document.getElementById('gameCanvas');
-const ctx = canvas.getContext('2d');
-
-canvas.width = 800;
-canvas.height = 600;
-
-// Player settings
-const player = {
-  x: canvas.width / 2 - 25,
-  y: canvas.height - 50,
-  width: 50,
-  height: 20,
-  speed: 7,
-  bullets: []
+// Game configuration
+const config = {
+  type: Phaser.AUTO,
+  width: 800,
+  height: 600,
+  physics: {
+    default: 'arcade',
+    arcade: {
+      gravity: { y: 0 },
+      debug: false
+    }
+  },
+  scene: {
+    preload: preload,
+    create: create,
+    update: update
+  }
 };
 
-// Enemy settings
-const enemies = [];
-const enemyRows = 3;
-const enemyCols = 8;
-const enemyWidth = 40;
-const enemyHeight = 30;
-const enemyPadding = 10;
-const enemyOffsetTop = 50;
-const enemyOffsetLeft = 70;
+let player, cursors, lasers, enemies, score = 0, scoreText;
+const game = new Phaser.Game(config);
 
-// Generate enemies
-for (let row = 0; row < enemyRows; row++) {
-  for (let col = 0; col < enemyCols; col++) {
-    enemies.push({
-      x: col * (enemyWidth + enemyPadding) + enemyOffsetLeft,
-      y: row * (enemyHeight + enemyPadding) + enemyOffsetTop,
-      width: enemyWidth,
-      height: enemyHeight,
-      isAlive: true
-    });
+function preload() {
+  this.load.image('background', 'images/background.jpg');
+  this.load.image('player', 'images/player.png');
+  this.load.image('enemy', 'images/enemy.png');
+  this.load.image('laser', 'images/laser.png');
+}
+
+function create() {
+  // Background
+  this.add.image(400, 300, 'background');
+
+  // Player
+  player = this.physics.add.sprite(400, 550, 'player').setCollideWorldBounds(true);
+
+  // Controls
+  cursors = this.input.keyboard.createCursorKeys();
+
+  // Laser Group
+  lasers = this.physics.add.group();
+
+  // Enemy Group
+  enemies = this.physics.add.group();
+  spawnEnemies(this);
+
+  // Score Text
+  scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '24px', fill: '#fff' });
+}
+
+function update() {
+  player.setVelocityX(0);
+
+  if (cursors.left.isDown) player.setVelocityX(-300);
+  else if (cursors.right.isDown) player.setVelocityX(300);
+
+  if (Phaser.Input.Keyboard.JustDown(cursors.space)) fireLaser(this);
+}
+
+function fireLaser(scene) {
+  const laser = lasers.create(player.x, player.y - 20, 'laser');
+  laser.setVelocityY(-500);
+}
+
+function spawnEnemies(scene) {
+  for (let i = 0; i < 5; i++) {
+    const enemy = enemies.create(100 + i * 120, 100, 'enemy');
+    enemy.setVelocityX(100 * (Math.random() > 0.5 ? 1 : -1));
+    enemy.setBounce(1);
+    enemy.setCollideWorldBounds(true);
   }
 }
 
-// Player movement
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'ArrowLeft') player.x -= player.speed;
-  if (e.key === 'ArrowRight') player.x += player.speed;
-  if (e.key === ' ') player.bullets.push({ x: player.x + 22, y: player.y, speed: 5 });
-});
+function hitEnemy(laser, enemy) {
+  laser.destroy();
+  enemy.destroy();
 
-// Game loop
-function gameLoop() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // Draw player
-  ctx.fillStyle = 'green';
-  ctx.fillRect(player.x, player.y, player.width, player.height);
-
-  // Draw bullets
-  player.bullets.forEach((bullet, index) => {
-    bullet.y -= bullet.speed;
-    ctx.fillRect(bullet.x, bullet.y, 5, 10);
-
-    // Remove bullet if off-screen
-    if (bullet.y < 0) player.bullets.splice(index, 1);
-  });
-
-  // Draw enemies
-  enemies.forEach((enemy, index) => {
-    if (enemy.isAlive) {
-      ctx.fillStyle = 'red';
-      ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
-
-      // Bullet collision with enemy
-      player.bullets.forEach((bullet, bulletIndex) => {
-        if (
-          bullet.x < enemy.x + enemy.width &&
-          bullet.x + 5 > enemy.x &&
-          bullet.y < enemy.y + enemy.height &&
-          bullet.y + 10 > enemy.y
-        ) {
-          enemy.isAlive = false;
-          player.bullets.splice(bulletIndex, 1);
-        }
-      });
-    }
-  });
-
-  requestAnimationFrame(gameLoop);
+  score += 10;
+  scoreText.setText('Score: ' + score);
 }
-
-// Start the game
-gameLoop();

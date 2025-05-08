@@ -17,7 +17,8 @@ const config = {
   }
 };
 
-let player, cursors, lasers, enemies, score = 0, scoreText, gameOverText;
+let player, cursors, lasers, enemies, score = 0, scoreText;
+let gameOverText;
 let game = new Phaser.Game(config);
 
 function preload() {
@@ -51,27 +52,14 @@ function create() {
   // Score
   scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '24px', fill: '#fff' });
 
-  // Game Over Text (hidden by default)
-  gameOverText = this.add.text(400, 300, 'Game Over\nClick to Restart', {
-    fontSize: '32px', fill: '#ff0000', align: 'center'
-  }).setOrigin(0.5).setVisible(false);
+  // Game Over Text (hidden initially)
+  gameOverText = this.add.text(400, 300, 'Game Over!', { fontSize: '48px', fill: '#ff0000' }).setOrigin(0.5).setVisible(false);
 
   // Controls
   cursors = this.input.keyboard.createCursorKeys();
-
-  // Check for stored highscore and display it
-  const savedScore = localStorage.getItem('highscore');
-  if (savedScore) {
-    scoreText.setText('Highscore: ' + savedScore);
-  }
 }
 
 function update() {
-  // Check if game is over
-  if (gameOverText.visible) {
-    return; // Stop updating if game over
-  }
-
   // Player movement
   player.setVelocityX(0);
 
@@ -94,8 +82,8 @@ function update() {
 
   // Laser and enemy collision
   this.physics.world.collide(lasers, enemies, destroyEnemy, null, this);
-  
-  // Check if enemy collides with player
+
+  // Check for collision between player and enemies
   this.physics.world.collide(player, enemies, gameOver, null, this);
 }
 
@@ -137,6 +125,7 @@ function destroyEnemy(laser, enemy) {
   spawnEnemy();
 }
 
+// Handle game over scenario
 function gameOver(player, enemy) {
   // Store the high score
   const highscore = Math.max(score, localStorage.getItem('highscore') || 0);
@@ -149,25 +138,35 @@ function gameOver(player, enemy) {
   player.setVelocity(0);
   enemies.setVelocityY(0);
 
-  // Restart game when clicked
-  this.input.once('pointerdown', restartGame, this);
+  // Show the restart button using jQuery
+  $('#restart-button').show();
+
+  // Use jQuery to handle restart button click
+  $('#restart-button').on('click', function() {
+    restartGame();
+    $(this).hide(); // Hide restart button after click
+  });
 }
 
+// Restart the game
 function restartGame() {
-  // Reset score
+  // Reset score and enemies
   score = 0;
   scoreText.setText('Score: ' + score);
-  
-  // Reset the enemies
+
+  // Hide game over text and restart the physics
+  gameOverText.setVisible(false);
+
+  // Reset the player position
+  player.setPosition(400, 500);
+
+  // Reset enemies and spawn new ones
   enemies.clear(true, true);
   for (let i = 0; i < 5; i++) {
     spawnEnemy();
   }
 
-  // Reset the player position and restart the game
-  player.setPosition(400, 500);
-  gameOverText.setVisible(false);
-
-  // Restart the game physics
+  // Resume the game and restart the physics
   enemies.setVelocityY(100);
+  player.setVelocity(0);
 }

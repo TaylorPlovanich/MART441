@@ -17,82 +17,85 @@ const config = {
   }
 };
 
-let player, cursors, spaceKey, lasers, enemies;
+let player, cursors, lasers, enemies, score = 0, scoreText;
 let game = new Phaser.Game(config);
 
 function preload() {
   this.load.image('background', 'images/background.jpg');
   this.load.image('player', 'images/player.png');
-  this.load.image('laser', 'images/laser.png');
   this.load.image('enemy', 'images/enemy.png');
+  this.load.image('laser', 'images/laser.png');
 }
 
 function create() {
   // Background
   const background = this.add.image(400, 300, 'background');
-  background.setDisplaySize(this.scale.width, this.scale.height); // Full-screen background
+  background.setDisplaySize(this.scale.width, this.scale.height);
 
   // Player
-  player = this.physics.add.sprite(400, 500, 'player').setScale(0.5);
+  player = this.physics.add.sprite(400, 500, 'player').setScale(0.2);
   player.setCollideWorldBounds(true);
 
-  // Controls
-  cursors = this.input.keyboard.createCursorKeys();
-  spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
-  // Laser Group
+  // Lasers
   lasers = this.physics.add.group({
+    classType: Phaser.Physics.Arcade.Image,
     defaultKey: 'laser',
     maxSize: 10
   });
 
-  // Enemies Group
+  // Enemies
   enemies = this.physics.add.group();
-  spawnEnemies(this);
+  for (let i = 0; i < 5; i++) {
+    let enemy = enemies.create(100 + i * 120, 100, 'enemy').setScale(0.2);
+    enemy.setVelocityX(100);
+  }
 
-  // Collisions
-  this.physics.add.overlap(lasers, enemies, destroyEnemy, null, this);
+  // Score
+  scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '24px', fill: '#fff' });
+
+  // Controls
+  cursors = this.input.keyboard.createCursorKeys();
 }
 
 function update() {
-  // Player Movement
+  // Player movement
   player.setVelocityX(0);
 
   if (cursors.left.isDown) {
-    player.setVelocityX(-300);
+    player.setVelocityX(-200);
   } else if (cursors.right.isDown) {
-    player.setVelocityX(300);
+    player.setVelocityX(200);
   }
 
-  // Fire Laser
-  if (Phaser.Input.Keyboard.JustDown(spaceKey)) {
-    fireLaser(this);
+  if (Phaser.Input.Keyboard.JustDown(cursors.space)) {
+    fireLaser();
   }
+
+  // Enemies bouncing
+  enemies.children.iterate((enemy) => {
+    if (enemy.x > 780 || enemy.x < 20) {
+      enemy.setVelocityX(enemy.body.velocity.x * -1);
+    }
+  });
+
+  // Laser and enemy collision
+  this.physics.world.collide(lasers, enemies, destroyEnemy, null, this);
 }
 
-// Fire Laser Function
-function fireLaser(scene) {
-  const laser = lasers.get(player.x, player.y - 20);
+function fireLaser() {
+  let laser = lasers.get(player.x, player.y - 20);
+
   if (laser) {
     laser.setActive(true);
     laser.setVisible(true);
-    laser.body.enable = true;
-    laser.setVelocityY(-500);
+    laser.body.velocity.y = -300;
+    laser.setScale(0.1);
   }
 }
 
-// Spawn Enemies Function
-function spawnEnemies(scene) {
-  for (let i = 0; i < 5; i++) {
-    let enemy = enemies.create(100 + i * 120, 100, 'enemy');
-    enemy.setVelocityY(100);
-    enemy.setCollideWorldBounds(true);
-    enemy.setBounce(1);
-  }
-}
-
-// Destroy Enemy Function
 function destroyEnemy(laser, enemy) {
-  laser.disableBody(true, true);
-  enemy.disableBody(true, true);
+  laser.destroy();
+  enemy.destroy();
+  score += 10;
+  scoreText.setText('Score: ' + score);
 }

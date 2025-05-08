@@ -33,20 +33,19 @@ function create() {
   background.setDisplaySize(this.scale.width, this.scale.height);
 
   // Player
-  player = this.physics.add.sprite(400, 500, 'player').setScale(0.5);
+  player = this.physics.add.sprite(400, 500, 'player2').setScale(0.5);
   player.setCollideWorldBounds(true);
 
   // Lasers (no maxSize to allow unlimited firing)
   lasers = this.physics.add.group({
     classType: Phaser.Physics.Arcade.Image,
-    defaultKey: 'laser'
+    defaultKey: 'laser2'
   });
 
   // Enemies
   enemies = this.physics.add.group();
   for (let i = 0; i < 5; i++) {
-    let enemy = enemies.create(100 + i * 120, 100, 'enemy').setScale(0.2);
-    enemy.setVelocityX(100);
+    spawnEnemy();
   }
 
   // Score
@@ -70,10 +69,10 @@ function update() {
     fireLaser();
   }
 
-  // Enemies bouncing
+  // Enemies falling and respawning
   enemies.children.iterate((enemy) => {
-    if (enemy.x > 780 || enemy.x < 20) {
-      enemy.setVelocityX(enemy.body.velocity.x * -1);
+    if (enemy.y > 600) {
+      resetEnemy(enemy);
     }
   });
 
@@ -97,9 +96,24 @@ function fireLaser() {
   }
 }
 
+function spawnEnemy() {
+  let x = Phaser.Math.Between(50, 750);
+  let enemy = enemies.create(x, 0, 'enemy').setScale(0.2);
+  enemy.setVelocityY(100); // Falling speed
+}
+
+function resetEnemy(enemy) {
+  enemy.y = 0;
+  enemy.x = Phaser.Math.Between(50, 750);
+  enemy.setVelocityY(100);
+}
+
 function destroyEnemy(laser, enemy) {
   laser.destroy();
   enemy.destroy();
   score += 10;
   scoreText.setText('Score: ' + score);
+  
+  // Spawn a new enemy when one is destroyed
+  spawnEnemy();
 }

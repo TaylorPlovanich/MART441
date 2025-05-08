@@ -51,7 +51,10 @@ function create() {
   scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '24px', fill: '#fff' });
 
   // Game Over Text (hidden initially)
-  gameOverText = this.add.text(400, 300, 'Game Over!', { fontSize: '48px', fill: '#ff0000' }).setOrigin(0.5).setVisible(false);
+  gameOverText = this.add.text(400, 300, 'Game Over! Click to Restart', { 
+    fontSize: '48px', 
+    fill: '#ff0000' 
+  }).setOrigin(0.5).setVisible(false);
 
   // Controls
   cursors = this.input.keyboard.createCursorKeys();

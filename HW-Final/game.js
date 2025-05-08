@@ -35,6 +35,8 @@ function create() {
   // Platforms
   const platforms = this.physics.add.staticGroup();
   platforms.create(400, 568, 'ground').setScale(2).refreshBody();
+  platforms.create(600, 400, 'ground');
+  platforms.create(200, 300, 'ground');
 
   // Player
   player = this.physics.add.sprite(100, 450, 'player');
@@ -45,7 +47,7 @@ function create() {
   cursors = this.input.keyboard.createCursorKeys();
 
   // Trivia Area
-  triviaArea = this.physics.add.staticSprite(600, 400, 'triviaArea');
+  triviaArea = this.physics.add.staticSprite(600, 380, 'triviaArea'); // Slightly above the platform
 
   // Collision
   this.physics.add.collider(player, platforms);
@@ -76,7 +78,7 @@ function askTrivia() {
       score += 10;
       scoreText.setText('Score: ' + score);
       triviaAnswered = true; // Prevents the question from repeating
-      triviaArea.setVisible(false); // Makes the trivia area disappear
+      triviaArea.destroy(); // Makes the trivia area disappear, not the platform
     } else {
       alert('Incorrect! Try again.');
     }

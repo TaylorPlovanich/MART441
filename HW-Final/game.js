@@ -18,14 +18,13 @@ const config = {
 };
 
 let player, cursors, lasers, enemies, score = 0, scoreText;
-let gameOverText, currentLevel = 1;
+let gameOverText;
 let game = new Phaser.Game(config);
 
 function preload() {
   this.load.image('background', 'images/background.jpg');
   this.load.image('player', 'images/player2.png');
-  this.load.image('enemy', 'images/enemy.png'); // Level 1 enemy
-  this.load.image('enemy2', 'images/enemy2.png'); // Level 2 enemy
+  this.load.image('enemy', 'images/enemy.png');
   this.load.image('laser', 'images/laser2.png');
 }
 
@@ -44,7 +43,7 @@ function create() {
     defaultKey: 'laser'
   });
 
-  // Enemies group initialization
+  // Enemies
   enemies = this.physics.add.group();
   for (let i = 0; i < 5; i++) {
     spawnEnemy();
@@ -86,12 +85,6 @@ function update() {
 
   // Check for collision between player and enemies
   this.physics.world.collide(player, enemies, gameOver, null, this);
-
-  // Check if the player reaches level 2
-  if (score >= 500 && currentLevel === 1) {
-    currentLevel = 2;
-    levelUp();
-  }
 }
 
 function fireLaser() {
@@ -112,26 +105,14 @@ function fireLaser() {
 
 function spawnEnemy() {
   let x = Phaser.Math.Between(50, 750);
-  let enemy;
-
-  if (currentLevel === 1) {
-    enemy = enemies.create(x, 0, 'enemy').setScale(0.2);
-    enemy.setVelocityY(100); // Falling speed for level 1 enemies
-  } else if (currentLevel === 2) {
-    enemy = enemies.create(x, 0, 'enemy2').setScale(0.2);
-    enemy.setVelocityY(150); // Faster falling speed for level 2 enemies
-  }
+  let enemy = enemies.create(x, 0, 'enemy').setScale(0.2);
+  enemy.setVelocityY(100); // Falling speed
 }
 
 function resetEnemy(enemy) {
   enemy.y = 0;
   enemy.x = Phaser.Math.Between(50, 750);
-
-  if (currentLevel === 1) {
-    enemy.setVelocityY(100); // Falling speed for level 1 enemies
-  } else if (currentLevel === 2) {
-    enemy.setVelocityY(150); // Faster falling speed for level 2 enemies
-  }
+  enemy.setVelocityY(100);
 }
 
 function destroyEnemy(laser, enemy) {
@@ -188,17 +169,4 @@ function restartGame() {
   // Resume the game and restart the physics
   enemies.setVelocityY(100);
   player.setVelocity(0);
-}
-
-// Level up when the player reaches score 500
-function levelUp() {
-  // Change background, enemy speed, etc., to make the level feel different
-  // For now, we change the enemy type and speed.
-
-  // Optionally, add more enemies or increase their speed here
-  scoreText.setText('Level 2! Score: ' + score); // Change score text to show level 2
-  enemies.clear(true, true); // Clear existing enemies and respawn
-  for (let i = 0; i < 5; i++) {
-    spawnEnemy();
-  }
 }

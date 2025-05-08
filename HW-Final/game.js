@@ -29,6 +29,12 @@ function preload() {
 }
 
 function create() {
+  // Add instructions above the game
+  const instructions = this.add.text(400, 20, 'Use arrow keys to move. Press spacebar to shoot.', {
+    fontSize: '18px',
+    fill: '#fff'
+  }).setOrigin(0.5);
+
   // Background
   const background = this.add.image(400, 300, 'background');
   background.setDisplaySize(this.scale.width, this.scale.height);
@@ -48,7 +54,7 @@ function create() {
   spawnEnemies();
 
   // Score and Level
-  scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '24px', fill: '#fff' });
+  scoreText = this.add.text(16, 40, 'Score: 0', { fontSize: '24px', fill: '#fff' });
 
   // Game Over Text (hidden initially)
   gameOverText = this.add.text(400, 300, 'Game Over! Click to Restart', { 
